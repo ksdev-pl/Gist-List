@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $('#intro-arrow-wrapper').fadeIn().delay(1000).fadeOut();
+    $('#intro-arrow-wrapper').fadeIn().fadeOut().fadeIn().fadeOut();
 
     var stringToColour = function(str) {
         var hash = 0;
