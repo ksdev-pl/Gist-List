@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    $('#intro-arrow-wrapper').fadeIn().delay(1000).fadeOut();
+
     var stringToColour = function(str) {
         var hash = 0;
         for (var i = 0; i < str.length; i++) {

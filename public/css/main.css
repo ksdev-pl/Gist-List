@@ -23,10 +23,6 @@ html, body {
     margin-bottom: 50px;
 }
 
-#page-intro .mega-octicon {
-    font-size: 272px;
-}
-
 #page-intro .btn-action {
     padding: 14px 24px;
     font-size: 21px;
@@ -41,6 +37,23 @@ html, body {
     right: 0;
     bottom: 0;
     left: 0;
+}
+
+#intro-wrapper .mega-octicon {
+    font-size: 272px;
+}
+
+#intro-arrow-wrapper {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+}
+
+#intro-arrow-wrapper span.mega-octicon {
+    font-size: 64px;
+    color: #428bca;
 }
 
 #page-about {

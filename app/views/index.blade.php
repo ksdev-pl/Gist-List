@@ -17,6 +17,9 @@
             <span class="mega-octicon octicon-gist text-muted"></span>
         </div>
     </div>
+    <div id="intro-arrow-wrapper" class="text-center display-none">
+        <span class="mega-octicon octicon-arrow-down"></span>
+    </div>
 </section>
 <a href="https://github.com/ksdev-pl/Gist-List" target="_blank">
     <img
