@@ -2,12 +2,16 @@
 =========
 ###Clear Organization of Your Gists
 
-* __Add tags__: Every word in a #tag format added to a gist description will be transformed to a colored tag. As this is done using Github, you are not dependend on Gist List implementation.
+* __Add tags__: Every word in a #tag format added to a gist description will be transformed to a colored tag. As this is done using Github, you are not dependent on Gist List implementation.
 * __Backup__: Download a zip archive of all your gists, together with those that you starred. The only limitation is the size of each gist file (max 100 kB), and the frequency of one backup every five minutes.
 * __Sort and Search__: Unleash the power of a sortable table! ;-) With the help of the great DataTables instantly paginate, sort, search and filter all your gists using clear and simple interface.
 * __Keep your privacy__: No user data is stored apart from the usual server statistics and temporary files needed to perform backup - these are deleted every hour by a cron job. No database is used - gists are fetched anew with every connection.
 
+---
+
 ![Gist List](https://dl.dropboxusercontent.com/s/rfc7jh5kcqjsuqs/gistlist.png)
+
+---
 
 ##### Dependencies
 * PHP 5.4 (short array syntax)

@@ -33,7 +33,7 @@
                 <h3><span class="mega-octicon octicon-tag fa-fw"></span> <mark>Add tags</mark></h3>
                 <p>
                     Every word in a #tag format added to a gist description will be transformed to a colored tag. As
-                    this is done using Github, you are not dependend on Gist List implementation.
+                    this is done using Github, you are not dependent on Gist List implementation.
                 </p>
                 <h3><span class="mega-octicon octicon-file-zip fa-fw"></span> <mark>Backup</mark></h3>
                 <p>
