@@ -48,7 +48,7 @@ class GistController extends Controller
     /**
      * Backup Gists
      *
-     * If the time of last backup is less than 1 minute ago, interrupts and returns a string.
+     * If the time of last backup is less than 5 minutes ago, interrupts and returns a string.
      * Otherwise returns the archived file response.
      *
      * @return string | \Symfony\Component\HttpFoundation\BinaryFileResponse
