@@ -94,26 +94,33 @@ class GistFinder
      */
     private function mergeGistArrays(array $arrayOfUserGists, array $arrayOfStarredGists)
     {
-        $authUserId = $arrayOfUserGists[0]['owner']['id'];
+        if (!empty($arrayOfUserGists)) {
+            $authUserId = $arrayOfUserGists[0]['owner']['id'];
 
-        $IdsOfStarredGistsOwnedByUser = [];
-        foreach ($arrayOfStarredGists as $key => $starredGist) {
-            if ($starredGist['owner']['id'] === $authUserId) {
-                $IdsOfStarredGistsOwnedByUser[] = $starredGist['id'];
-            }
-            $arrayOfStarredGists[$key]['starred'] = true;
-        }
-
-        foreach ($arrayOfUserGists as $key => $userGist) {
-            foreach ($IdsOfStarredGistsOwnedByUser as $starredId) {
-                if ($userGist['id'] === $starredId) {
-                    unset ($arrayOfUserGists[$key]);
-
-                    continue 2;
+            $IdsOfStarredGistsOwnedByUser = [];
+            foreach ($arrayOfStarredGists as $key => $starredGist) {
+                if ($starredGist['owner']['id'] === $authUserId) {
+                    $IdsOfStarredGistsOwnedByUser[] = $starredGist['id'];
                 }
+                $arrayOfStarredGists[$key]['starred'] = true;
             }
 
-            $arrayOfUserGists[$key]['starred'] = false;
+            foreach ($arrayOfUserGists as $key => $userGist) {
+                foreach ($IdsOfStarredGistsOwnedByUser as $starredId) {
+                    if ($userGist['id'] === $starredId) {
+                        unset ($arrayOfUserGists[$key]);
+
+                        continue 2;
+                    }
+                }
+
+                $arrayOfUserGists[$key]['starred'] = false;
+            }
+        }
+        elseif (!empty($arrayOfStarredGists)) {
+            foreach ($arrayOfStarredGists as $key => $starredGist) {
+                $arrayOfStarredGists[$key]['starred'] = true;
+            }
         }
 
         $arrayOfMergedGists = array_merge($arrayOfUserGists, $arrayOfStarredGists);
