@@ -39,17 +39,17 @@ class GistTest extends TestCase
             'all'     => 4,
             'myGists' => 3,
             'starred' => 2,
-            'tags' => [
+            'tags'    => [
                 0 => [
-                    'name' => '#tag1',
+                    'name'  => '#tag1',
                     'count' => 2
                 ],
                 1 => [
-                    'name' => '#tag2',
+                    'name'  => '#tag2',
                     'count' => 2
                 ],
                 2 => [
-                    'name' => '#tag3',
+                    'name'  => '#tag3',
                     'count' => 2
                 ]
             ]
