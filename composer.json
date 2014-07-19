@@ -5,9 +5,12 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-        "barryvdh/laravel-ide-helper": "1.*",
         "guzzlehttp/guzzle": "~4.0"
 	},
+    "require-dev": {
+        "mockery/mockery": "dev-master",
+        "barryvdh/laravel-ide-helper": "1.*"
+    },
 	"autoload": {
 		"classmap": [
 			"app/commands",
