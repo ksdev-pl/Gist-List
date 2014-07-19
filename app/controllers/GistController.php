@@ -36,11 +36,11 @@ class GistController extends Controller
     {
         $gists = $this->gistFinder->getAll();
         $user = $this->userFinder->getAuthenticatedUser();
-        $tags = Gist::getListOfCountedTags($gists, $user->getId());
+        $tagCount = Gist::getListOfCountedTags($gists, $user->getId());
 
         return View::make('gist.index', [
             'gists' => $gists,
-            'tags' => $tags,
+            'tagCount' => $tagCount,
             'user' => $user
         ]);
     }

@@ -42,37 +42,35 @@
     <div class="list-group">
         <a href="#" class="search-filter list-group-item filter-all active">
             All
-            <span class="pull-right">{{ $tags['all'] }}</span>
+            <span class="pull-right">{{ $tagCount['all'] }}</span>
         </a>
         <a href="#" class="search-filter list-group-item filter-my-gists">
             My Gists
-            <span class="pull-right">{{ $tags['myGists'] }}</span>
+            <span class="pull-right">{{ $tagCount['myGists'] }}</span>
         </a>
         <a href="#" class="search-filter list-group-item filter-starred">
             Starred
-            <span class="pull-right">{{ $tags['starred'] }}</span>
+            <span class="pull-right">{{ $tagCount['starred'] }}</span>
         </a>
         <a href="#" class="search-filter list-group-item filter-public">
             Public
-            <span class="pull-right">{{ $tags['public'] }}</span>
+            <span class="pull-right">{{ $tagCount['public'] }}</span>
         </a>
         <a href="#" class="search-filter list-group-item filter-private">
             Private
-            <span class="pull-right">{{ $tags['private'] }}</span>
+            <span class="pull-right">{{ $tagCount['private'] }}</span>
         </a>
     </div>
     <div class="list-group">
         <a href="#" class="search-filter list-group-item filter-no-tag">
             Without Tag
-            <span class="pull-right">{{ $tags['noTag'] }}</span>
+            <span class="pull-right">{{ $tagCount['noTag'] }}</span>
         </a>
-        @foreach ($tags as $tag)
-        @if ($tag['name'])
+        @foreach ($tagCount['tags'] as $tag)
         <a href="#" class="search-filter list-group-item filter-tag">
             <span class="label tag">{{{ $tag['name'] }}}</span>
             <span class="pull-right">{{ $tag['count'] }}</span>
         </a>
-        @endif
         @endforeach
     </div>
 </div>
@@ -94,7 +92,7 @@
             <thead>
             <tr>
                 <th
-                    @if ($tags['noTag'] === $tags['all'])
+                    @if ($tagCount['noTag'] === $tagCount['all'])
                     class="hidden"
                     @endif
                 >
@@ -112,7 +110,7 @@
             @foreach ($gists as $gist)
             <tr>
                 <td
-                    @if ($tags['noTag'] === $tags['all'])
+                    @if ($tagCount['noTag'] === $tagCount['all'])
                     class="hidden"
                     @endif
                     >

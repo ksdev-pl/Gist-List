@@ -41,58 +41,58 @@ class Gist
      * @param Gist[] $gists
      * @param string $ownerId  GitHub id of owner of Gists
      *
-     * @return array  Returns an array where the key is a tag or a kind of Gist and the value a number of occurences
+     * @return array 
      */
     public static function getListOfCountedTags(array $gists, $ownerId)
     {
-        $tagsList = [
+        $tagCount = [
             'public'  => 0,
             'private' => 0,
             'noTag'   => 0,
             'all'     => 0,
             'myGists' => 0,
-            'starred' => 0
+            'starred' => 0,
+            'tags' => []
         ];
         foreach ($gists as $gist) {
             foreach ($gist->getTags() as $tagFromGist) {
-                $keyOfTagAlreadyInList = false;
-                foreach ($tagsList as $listKey => $tagFromList) {
-                    if ($tagFromGist === $tagFromList['name']) {
-                        $keyOfTagAlreadyInList = $listKey;
+                $tagAlreadyInArray = false;
+                foreach ($tagCount['tags'] as $key => $tagFromCountList) {
+                    if ($tagFromGist === $tagFromCountList['name']) {
+                        $tagAlreadyInArray = $key;
                     }
                 }
-                if ($keyOfTagAlreadyInList === false) {
-                    $tagsList[] = ['name' => $tagFromGist, 'count' => 1];
-
+                if ($tagAlreadyInArray === false) {
+                    $tagCount['tags'][] = ['name' => $tagFromGist, 'count' => 1];
                 }
                 else {
-                    $tagsList[$keyOfTagAlreadyInList]['count'] += 1;
+                    $tagCount['tags'][$tagAlreadyInArray]['count'] += 1;
                 }
             }
 
             if ($gist->getIsPublic()) {
-                $tagsList['public'] += 1;
+                $tagCount['public'] += 1;
             }
             else {
-                $tagsList['private'] += 1;
+                $tagCount['private'] += 1;
             }
 
             if (!$gist->getTags()) {
-                $tagsList['noTag'] += 1;
+                $tagCount['noTag'] += 1;
             }
 
             if ($gist->getOwner()['id'] === $ownerId) {
-                $tagsList['myGists'] += 1;
+                $tagCount['myGists'] += 1;
             }
 
             if ($gist->getIsStarred() === true) {
-                $tagsList['starred'] += 1;
+                $tagCount['starred'] += 1;
             }
 
-            $tagsList['all'] += 1;
+            $tagCount['all'] += 1;
         }
 
-        return $tagsList;
+        return $tagCount;
     }
 
     /**
@@ -116,7 +116,7 @@ class Gist
      *
      * Seeks tags in original Gist description and saves them and description separately
      *
-     * @param $description  Gist description with optional tags
+     * @param string $description  Gist description with optional tags
      */
     public function setDescriptionAndTags($description)
     {
