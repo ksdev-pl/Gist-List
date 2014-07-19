@@ -41,7 +41,7 @@ class Gist
      * @param Gist[] $gists
      * @param string $ownerId  GitHub id of owner of Gists
      *
-     * @return array 
+     * @return array
      */
     public static function getListOfCountedTags(array $gists, $ownerId)
     {
