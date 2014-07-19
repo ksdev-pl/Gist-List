@@ -15,6 +15,7 @@ __Clear Organization of Your Gists:__
 ##### Dependencies
 * PHP 5.4 (short array syntax)
 * [__Laravel Framework:__](https://github.com/laravel/framework) 4.2.*
+* [__Guzzle:__](https://github.com/guzzle/guzzle) ~4.0
 * [__DataTables:__](https://github.com/DataTables/DataTables) 1.10.0
 * [__jQuery File Download__](https://github.com/johnculviner/jquery.fileDownload)
 * [__Twitter Bootstrap:__](https://github.com/twbs/bootstrap) 3.2.0
