@@ -1,5 +1,8 @@
-[Gist List](https://gistlist.nfshost.com)
-=========
+# [Gist List](https://gistlist.nfshost.com)
+
+[![Build Status](https://api.travis-ci.org/ksdev-pl/Gist-List.svg)](https://travis-ci.org/ksdev-pl/Gist-List)
+[![License](http://img.shields.io/:license-mit-brightgreen.svg)](http://opensource.org/licenses/MIT)
+
 __Clear Organization of Your Gists:__
 
 * __Add tags__: Every word in a #tag format added to a gist description will be transformed to a colored tag. As this is done using Github, you are not dependent on Gist List implementation.
