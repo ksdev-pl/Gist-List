@@ -16,7 +16,7 @@
  */
 App::before(function($request)
 {
-    if ( ! (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
+    if ( ! (Request::server('HTTP_X_FORWARDED_PROTO') == 'https'))
     {
         return Redirect::secure(Request::path(), 301);
     }

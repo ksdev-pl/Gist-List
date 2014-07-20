@@ -59,7 +59,7 @@ App::error(function(NoSessionToken $exception)
 {
     Log::error($exception);
 
-    return Redirect::to('/');
+    return Redirect::secure('/');
 });
 
 App::error(function(\GuzzleHttp\Exception\ClientException $exception)
@@ -69,7 +69,7 @@ App::error(function(\GuzzleHttp\Exception\ClientException $exception)
     if ($exception->getCode() === 401) {
         Session::flush();
 
-        return Redirect::to('/');
+        return Redirect::secure('/');
     }
 
     return Response::view('error', ['error' => 'A website error has occurred.
