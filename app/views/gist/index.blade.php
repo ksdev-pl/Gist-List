@@ -122,15 +122,15 @@
                     @endif
                 </td>
                 <td class="hidden">
-                    @if ($gist->getIsStarred())
+                    @if ($gist->isStarred())
                     Starred
                     @endif
                 </td>
                 <td>
-                    @if (!$gist->getIsPublic())
+                    @if (!$gist->isPublic())
                     <i class="fa fa-lock fa-fw text-muted"></i>
                     @endif
-                    @if ($gist->getIsStarred())
+                    @if ($gist->isStarred())
                     <i class="fa fa-star fa-fw text-star"></i>
                     @endif
                     <a href="{{ $gist->getHtmlUrl() }}" target="_blank">
@@ -150,7 +150,7 @@
                     <a class="search-filter row-filter-owner" href="#">{{{ $gist->getOwner()['login'] }}}</a>
                 </td>
                 <td class="hidden">
-                    @if ($gist->getIsPublic())
+                    @if ($gist->isPublic())
                     Public
                     @else
                     Private

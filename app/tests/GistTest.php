@@ -6,27 +6,27 @@ class GistTest extends TestCase
     {
         $gist1 = new Gist();
         $gist1->setDescriptionAndTags('description #tag1 #tag2');
-        $gist1->setIsPublic(false);
+        $gist1->setPublic(false);
         $gist1->setOwner(['id' => 0]);
-        $gist1->setIsStarred(false);
+        $gist1->setStarred(false);
 
         $gist2 = new Gist();
         $gist2->setDescriptionAndTags('description #tag1 #tag2 #tag3');
-        $gist2->setIsPublic(false);
+        $gist2->setPublic(false);
         $gist2->setOwner(['id' => 0]);
-        $gist2->setIsStarred(false);
+        $gist2->setStarred(false);
 
         $gist3 = new Gist();
         $gist3->setDescriptionAndTags('description #tag3');
-        $gist3->setIsPublic(false);
+        $gist3->setPublic(false);
         $gist3->setOwner(['id' => 0]);
-        $gist3->setIsStarred(true);
+        $gist3->setStarred(true);
 
         $gist4 = new Gist();
         $gist4->setDescriptionAndTags('description');
-        $gist4->setIsPublic(true);
+        $gist4->setPublic(true);
         $gist4->setOwner(['id' => 1]);
-        $gist4->setIsStarred(true);
+        $gist4->setStarred(true);
 
         $gists = [$gist1, $gist2, $gist3, $gist4];
 

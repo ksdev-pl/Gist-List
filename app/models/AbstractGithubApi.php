@@ -17,7 +17,7 @@ abstract class AbstractGithubApi
     /**
      * Request GitHub access
      *
-     * @param $scope  A comma separated list of scopes
+     * @param string $scope  A comma separated list of scopes
      *
      * @return \Illuminate\Http\RedirectResponse
      */

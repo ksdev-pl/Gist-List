@@ -23,11 +23,11 @@ class Gist
     /** @type array $files */
     private $files = [];
 
-    /** @type boolean $isPublic */
-    private $isPublic;
+    /** @type boolean $public */
+    private $public;
 
-    /** @type boolean $isStarred */
-    private $isStarred;
+    /** @type boolean $starred */
+    private $starred;
 
     /** @type string $htmlUrl */
     private $htmlUrl;
@@ -70,7 +70,7 @@ class Gist
                 }
             }
 
-            if ($gist->getIsPublic()) {
+            if ($gist->isPublic()) {
                 $tagCount['public'] += 1;
             }
             else {
@@ -85,7 +85,7 @@ class Gist
                 $tagCount['myGists'] += 1;
             }
 
-            if ($gist->getIsStarred() === true) {
+            if ($gist->isStarred() === true) {
                 $tagCount['starred'] += 1;
             }
 
@@ -250,17 +250,17 @@ class Gist
     /**
      * @param boolean $isPublic
      */
-    public function setIsPublic($isPublic)
+    public function setPublic($isPublic)
     {
-        $this->isPublic = $isPublic;
+        $this->public = $isPublic;
     }
 
     /**
      * @return boolean
      */
-    public function getIsPublic()
+    public function isPublic()
     {
-        return $this->isPublic;
+        return $this->public;
     }
 
     /**
@@ -274,17 +274,17 @@ class Gist
     /**
      * @param boolean $isStarred
      */
-    public function setIsStarred($isStarred)
+    public function setStarred($isStarred)
     {
-        $this->isStarred = $isStarred;
+        $this->starred = $isStarred;
     }
 
     /**
      * @return boolean
      */
-    public function getIsStarred()
+    public function isStarred()
     {
-        return $this->isStarred;
+        return $this->starred;
     }
 
     /**

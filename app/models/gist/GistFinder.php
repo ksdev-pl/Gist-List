@@ -30,7 +30,7 @@ class GistFinder
     public function getAll()
     {
         $userGists = $this->githubApi->getGistsOfAuthUser();
-        $starredGists = $this->githubApi->getGistsOfAuthUser($starred = true);
+        $starredGists = $this->githubApi->getGistsOfAuthUser(true);
 
         $mergedGists =  $this->mergeGistArrays($userGists, $starredGists);
 
@@ -73,10 +73,10 @@ class GistFinder
         $gistObject->setDescriptionAndTags($gistArray['description']);
         $gistObject->setCreatedAt($gistArray['created_at']);
         $gistObject->setUpdatedAt($gistArray['updated_at']);
-        $gistObject->setIsPublic($gistArray['public']);
+        $gistObject->setPublic($gistArray['public']);
         $gistObject->setHtmlUrl($gistArray['html_url']);
         $gistObject->setFiles($gistArray['files']);
-        $gistObject->setIsStarred($gistArray['starred']);
+        $gistObject->setStarred($gistArray['starred']);
 
         return $gistObject;
     }
@@ -97,16 +97,16 @@ class GistFinder
         if (!empty($arrayOfUserGists)) {
             $authUserId = $arrayOfUserGists[0]['owner']['id'];
 
-            $IdsOfStarredGistsOwnedByUser = [];
+            $idsOfStarredGistsOwnedByUser = [];
             foreach ($arrayOfStarredGists as $key => $starredGist) {
                 if ($starredGist['owner']['id'] === $authUserId) {
-                    $IdsOfStarredGistsOwnedByUser[] = $starredGist['id'];
+                    $idsOfStarredGistsOwnedByUser[] = $starredGist['id'];
                 }
                 $arrayOfStarredGists[$key]['starred'] = true;
             }
 
             foreach ($arrayOfUserGists as $key => $userGist) {
-                foreach ($IdsOfStarredGistsOwnedByUser as $starredId) {
+                foreach ($idsOfStarredGistsOwnedByUser as $starredId) {
                     if ($userGist['id'] === $starredId) {
                         unset ($arrayOfUserGists[$key]);
 
