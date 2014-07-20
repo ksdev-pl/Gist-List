@@ -70,7 +70,7 @@ class Gist
                 }
             }
 
-            if ($gist->getIsPublic()) {
+            if ($gist->isPublic()) {
                 $tagCount['public'] += 1;
             }
             else {
@@ -85,7 +85,7 @@ class Gist
                 $tagCount['myGists'] += 1;
             }
 
-            if ($gist->getIsStarred() === true) {
+            if ($gist->isStarred() === true) {
                 $tagCount['starred'] += 1;
             }
 
@@ -258,7 +258,7 @@ class Gist
     /**
      * @return boolean
      */
-    public function getIsPublic()
+    public function isPublic()
     {
         return $this->isPublic;
     }
@@ -282,7 +282,7 @@ class Gist
     /**
      * @return boolean
      */
-    public function getIsStarred()
+    public function isStarred()
     {
         return $this->isStarred;
     }

@@ -107,13 +107,13 @@ class GistFinderTest extends TestCase
         $this->assertEquals(['#tag1', '#tag2'], $gists[0]->getTags());
         $this->assertEquals('2010-04-14 02:15:15', $gists[0]->getCreatedAt());
         $this->assertEquals('2011-06-20 11:34:15', $gists[0]->getUpdatedAt());
-        $this->assertEquals(false, $gists[0]->getIsPublic());
+        $this->assertEquals(false, $gists[0]->isPublic());
         $this->assertEquals('https://github.com/octocat', $gists[0]->getHtmlUrl());
         $this->assertEquals('test.md', $gists[0]->getFiles()['test.md']['filename']);
-        $this->assertEquals(false, $gists[0]->getIsStarred());
+        $this->assertEquals(false, $gists[0]->isStarred());
 
         $this->assertEquals(0, $gists[2]->getId());
-        $this->assertEquals(true, $gists[2]->getIsStarred());
+        $this->assertEquals(true, $gists[2]->isStarred());
 
         $this->assertFalse(isset($gists[3]));
     }
@@ -170,10 +170,10 @@ class GistFinderTest extends TestCase
         $gists = $this->gistFinder->getAll();
 
         $this->assertEquals(0, $gists[0]->getId());
-        $this->assertEquals(true, $gists[0]->getIsStarred());
+        $this->assertEquals(true, $gists[0]->isStarred());
 
         $this->assertEquals(1, $gists[1]->getId());
-        $this->assertEquals(true, $gists[1]->getIsStarred());
+        $this->assertEquals(true, $gists[1]->isStarred());
     }
 
     public function testGetAllWhenStarredGistsArrayIsEmpty()
@@ -228,10 +228,10 @@ class GistFinderTest extends TestCase
         $gists = $this->gistFinder->getAll();
 
         $this->assertEquals(0, $gists[0]->getId());
-        $this->assertEquals(false, $gists[0]->getIsStarred());
+        $this->assertEquals(false, $gists[0]->isStarred());
 
         $this->assertEquals(1, $gists[1]->getId());
-        $this->assertEquals(false, $gists[1]->getIsStarred());
+        $this->assertEquals(false, $gists[1]->isStarred());
     }
 
     public function testGetAllWhenThereAreNoGists()
