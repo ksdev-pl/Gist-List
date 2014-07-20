@@ -39,7 +39,7 @@ class Gist
      * and all Gists together.
      *
      * @param Gist[] $gists
-     * @param string $ownerId  GitHub id of owner of Gists
+     * @param int $ownerId  GitHub id of owner of Gists
      *
      * @return array
      */
