@@ -6,7 +6,7 @@ class GistBackupHandlerFactory
      * Get new GistBackupHandler
      *
      * @param User $user
-     * @param array $gists
+     * @param Gist[] $gists
      *
      * @return GistBackupHandler
      */

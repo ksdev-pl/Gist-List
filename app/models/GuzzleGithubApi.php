@@ -136,7 +136,7 @@ class GuzzleGithubApi extends AbstractGithubApi
     /**
      * Get the contents of a Gist file
      *
-     * @param $url
+     * @param string $url
      *
      * @return \GuzzleHttp\Stream\StreamInterface | null
      */
@@ -152,7 +152,7 @@ class GuzzleGithubApi extends AbstractGithubApi
      *
      * User must be authenticated
      *
-     * @param $id
+     * @param int $id
      *
      * @return array
      */

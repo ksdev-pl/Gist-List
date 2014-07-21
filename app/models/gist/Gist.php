@@ -98,9 +98,9 @@ class Gist
     /**
      * Convert date to 'Y-m-d H:i:s' format
      *
-     * @param $date
+     * @param string $date
      *
-     * @return bool | string
+     * @return string
      */
     private function convertDate($date)
     {

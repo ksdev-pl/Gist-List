@@ -61,7 +61,7 @@ abstract class AbstractGithubApi
     /**
      * Get the contents of a Gist file
      *
-     * @param $url
+     * @param string $url
      *
      * @return mixed
      */
@@ -72,7 +72,7 @@ abstract class AbstractGithubApi
      *
      * User must be authenticated
      *
-     * @param $id
+     * @param int $id
      *
      * @return array
      */
