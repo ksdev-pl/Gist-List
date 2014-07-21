@@ -1,6 +1,7 @@
 # [Gist List](https://gistlist.nfshost.com)
 
 [![Build Status](https://api.travis-ci.org/ksdev-pl/Gist-List.svg)](https://travis-ci.org/ksdev-pl/Gist-List)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ksdev-pl/Gist-List/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ksdev-pl/Gist-List/?branch=master)
 [![License](http://img.shields.io/:license-mit-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 __Clear Organization of Your Gists:__
