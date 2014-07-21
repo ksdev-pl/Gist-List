@@ -62,7 +62,7 @@ class GistFinderTest extends TestCase
         $this->githubApiMock
             ->shouldReceive('getGistsOfAuthUser')
             ->once()
-            ->with($starred = true)
+            ->with(true)
             ->andReturn(
                 [
                     0 => [
@@ -129,7 +129,7 @@ class GistFinderTest extends TestCase
         $this->githubApiMock
             ->shouldReceive('getGistsOfAuthUser')
             ->once()
-            ->with($starred = true)
+            ->with(true)
             ->andReturn(
                 [
                     0 => [
@@ -222,7 +222,7 @@ class GistFinderTest extends TestCase
         $this->githubApiMock
             ->shouldReceive('getGistsOfAuthUser')
             ->once()
-            ->with($starred = true)
+            ->with(true)
             ->andReturn([]);
 
         $gists = $this->gistFinder->getAll();
@@ -245,7 +245,7 @@ class GistFinderTest extends TestCase
         $this->githubApiMock
             ->shouldReceive('getGistsOfAuthUser')
             ->once()
-            ->with($starred = true)
+            ->with(true)
             ->andReturn([]);
 
         $gists = $this->gistFinder->getAll();

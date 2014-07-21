@@ -29,10 +29,14 @@ class GistFinder
      */
     public function getAll()
     {
-        $userGists = $this->githubApi->getGistsOfAuthUser();
-        $starredGists = $this->githubApi->getGistsOfAuthUser(true);
+        $userGists = $this->addStarredValue(false, $this->githubApi->getGistsOfAuthUser());
+        $starredGists = $this->addStarredValue(true, $this->githubApi->getGistsOfAuthUser(true));
 
-        $mergedGists =  $this->mergeGistArrays($userGists, $starredGists);
+        $mergedGists = array_merge($userGists, $starredGists);
+
+        if (!empty($userGists) && !empty($starredGists)) {
+            $mergedGists = $this->removeDuplicates($mergedGists);
+        }
 
         $arrayOfGistObjects = [];
         foreach ($mergedGists as $gist) {
@@ -82,49 +86,75 @@ class GistFinder
     }
 
     /**
-     * Merge arrays of user owned and starred gists and remove duplicates
+     * Add to every gist a 'starred' key with boolean value.
      *
-     * If a gist is at the same time owned and starred by the user, only the starred gist remains in merged array.
-     * Also adds to every gist a 'starred' key with boolean value.
-     *
-     * @param array $arrayOfUserGists
-     * @param array $arrayOfStarredGists
+     * @param bool $isStarred  Defaults to true
+     * @param array $gistsArray  Array of gist api responses
      *
      * @return array
      */
-    private function mergeGistArrays(array $arrayOfUserGists, array $arrayOfStarredGists)
+    private function addStarredValue($isStarred = true, array $gistsArray)
     {
-        if (!empty($arrayOfUserGists)) {
-            $authUserId = $arrayOfUserGists[0]['owner']['id'];
+        foreach ($gistsArray as &$gist) {
+            $gist['starred'] = $isStarred;
+        }
 
-            $idsOfStarredGistsOwnedByUser = [];
-            foreach ($arrayOfStarredGists as $key => $starredGist) {
-                if ($starredGist['owner']['id'] === $authUserId) {
-                    $idsOfStarredGistsOwnedByUser[] = $starredGist['id'];
-                }
-                $arrayOfStarredGists[$key]['starred'] = true;
+        return $gistsArray;
+    }
+
+    /**
+     * Remove duplicates from gists array
+     *
+     * If a gist is at the same time owned (unstarred) and starred by the user, only the starred gist remains
+     * in resultant array.
+     *
+     * @param array $gists
+     *
+     * @return array
+     */
+    private function removeDuplicates(array $gists)
+    {
+        $userId = $this->findUnstarredGistsOwnerId($gists);
+
+        $userStarredGistsIds = [];
+
+        // Loop starred gists
+        foreach ($gists as $gist) {
+            if ($gist['starred'] && $gist['owner']['id'] === $userId) {
+                $userStarredGistsIds[] = $gist['id'];
             }
+        }
 
-            foreach ($arrayOfUserGists as $key => $userGist) {
-                foreach ($idsOfStarredGistsOwnedByUser as $starredId) {
-                    if ($userGist['id'] === $starredId) {
-                        unset ($arrayOfUserGists[$key]);
+        // Loop owned (unstarred) gists
+        foreach ($gists as $key => $gist) {
+            if (!$gist['starred']) {
 
-                        continue 2;
+                foreach ($userStarredGistsIds as $starredId) {
+                    if ($gist['id'] === $starredId) {
+                        unset ($gists[$key]);
+
+                        break;
                     }
                 }
-
-                $arrayOfUserGists[$key]['starred'] = false;
-            }
-        }
-        elseif (!empty($arrayOfStarredGists)) {
-            foreach ($arrayOfStarredGists as $key => $starredGist) {
-                $arrayOfStarredGists[$key]['starred'] = true;
             }
         }
 
-        $arrayOfMergedGists = array_merge($arrayOfUserGists, $arrayOfStarredGists);
+        return $gists;
+    }
 
-        return $arrayOfMergedGists;
+    /**
+     * Find id of the owner of unstarred gists
+     *
+     * @param array $gists
+     *
+     * @return int
+     */
+    private function findUnstarredGistsOwnerId($gists)
+    {
+        foreach ($gists as $gist) {
+            if (!$gist['starred']) {
+                return $gist['owner']['id'];
+            }
+        }
     }
 }
