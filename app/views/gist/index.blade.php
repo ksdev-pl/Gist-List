@@ -42,31 +42,31 @@
     <div class="list-group">
         <a href="#" class="search-filter list-group-item filter-all active">
             All
-            <span class="pull-right">{{ $tagCount['all'] }}</span>
+            <span class="pull-right">{{ $gistCounter->getAll() }}</span>
         </a>
         <a href="#" class="search-filter list-group-item filter-my-gists">
             My Gists
-            <span class="pull-right">{{ $tagCount['myGists'] }}</span>
+            <span class="pull-right">{{ $gistCounter->getOwned() }}</span>
         </a>
         <a href="#" class="search-filter list-group-item filter-starred">
             Starred
-            <span class="pull-right">{{ $tagCount['starred'] }}</span>
+            <span class="pull-right">{{ $gistCounter->getStarred() }}</span>
         </a>
         <a href="#" class="search-filter list-group-item filter-public">
             Public
-            <span class="pull-right">{{ $tagCount['public'] }}</span>
+            <span class="pull-right">{{ $gistCounter->getPublic() }}</span>
         </a>
         <a href="#" class="search-filter list-group-item filter-private">
             Private
-            <span class="pull-right">{{ $tagCount['private'] }}</span>
+            <span class="pull-right">{{ $gistCounter->getPrivate() }}</span>
         </a>
     </div>
     <div class="list-group">
         <a href="#" class="search-filter list-group-item filter-no-tag">
             Without Tag
-            <span class="pull-right">{{ $tagCount['noTag'] }}</span>
+            <span class="pull-right">{{ $gistCounter->getWithoutTag() }}</span>
         </a>
-        @foreach ($tagCount['tags'] as $tag)
+        @foreach ($gistCounter->getTags() as $tag)
         <a href="#" class="search-filter list-group-item filter-tag">
             <span class="label tag">{{{ $tag['name'] }}}</span>
             <span class="pull-right">{{ $tag['count'] }}</span>
@@ -92,7 +92,7 @@
             <thead>
             <tr>
                 <th
-                    @if ($tagCount['noTag'] === $tagCount['all'])
+                    @if ($gistCounter->getWithoutTag() === $gistCounter->getAll())
                     class="hidden"
                     @endif
                 >
@@ -110,7 +110,7 @@
             @foreach ($gists as $gist)
             <tr>
                 <td
-                    @if ($tagCount['noTag'] === $tagCount['all'])
+                    @if ($gistCounter->getWithoutTag() === $gistCounter->getAll())
                     class="hidden"
                     @endif
                     >

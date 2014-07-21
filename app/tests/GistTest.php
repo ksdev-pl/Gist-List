@@ -30,16 +30,16 @@ class GistTest extends TestCase
 
         $gists = [$gist1, $gist2, $gist3, $gist4];
 
-        $tags = Gist::getListOfCountedTags($gists, $ownerId = 0);
+        $gistCounter = new GistCounter($gists, 0);
 
-        $expected = [
-            'public'  => 1,
-            'private' => 3,
-            'noTag'   => 1,
-            'all'     => 4,
-            'myGists' => 3,
-            'starred' => 2,
-            'tags'    => [
+        $this->assertEquals(1, $gistCounter->getPublic());
+        $this->assertEquals(3, $gistCounter->getPrivate());
+        $this->assertEquals(1, $gistCounter->getWithoutTag());
+        $this->assertEquals(4, $gistCounter->getAll());
+        $this->assertEquals(3, $gistCounter->getOwned());
+        $this->assertEquals(2, $gistCounter->getStarred());
+        $this->assertEquals(
+            [
                 0 => [
                     'name'  => '#tag1',
                     'count' => 2
@@ -52,9 +52,8 @@ class GistTest extends TestCase
                     'name'  => '#tag3',
                     'count' => 2
                 ]
-            ]
-        ];
-
-        $this->assertEquals($expected, $tags);
+            ],
+            $gistCounter->getTags()
+        );
     }
 }

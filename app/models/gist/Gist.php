@@ -33,69 +33,6 @@ class Gist
     private $htmlUrl;
 
     /**
-     * Get a list of counted tags
-     *
-     * Counts the number of each tag occurences, of Gists with no tag, of public, private, user own, starred
-     * and all Gists together.
-     *
-     * @param Gist[] $gists
-     * @param int $ownerId  GitHub id of owner of Gists
-     *
-     * @return array
-     */
-    public static function getListOfCountedTags(array $gists, $ownerId)
-    {
-        $tagCount = [
-            'public'  => 0,
-            'private' => 0,
-            'noTag'   => 0,
-            'all'     => 0,
-            'myGists' => 0,
-            'starred' => 0,
-            'tags' => []
-        ];
-        foreach ($gists as $gist) {
-            foreach ($gist->getTags() as $tagFromGist) {
-                $tagAlreadyInArray = false;
-                foreach ($tagCount['tags'] as $key => $tagFromCountList) {
-                    if ($tagFromGist === $tagFromCountList['name']) {
-                        $tagAlreadyInArray = $key;
-                    }
-                }
-                if ($tagAlreadyInArray === false) {
-                    $tagCount['tags'][] = ['name' => $tagFromGist, 'count' => 1];
-                }
-                else {
-                    $tagCount['tags'][$tagAlreadyInArray]['count'] += 1;
-                }
-            }
-
-            if ($gist->isPublic()) {
-                $tagCount['public'] += 1;
-            }
-            else {
-                $tagCount['private'] += 1;
-            }
-
-            if (!$gist->getTags()) {
-                $tagCount['noTag'] += 1;
-            }
-
-            if ($gist->getOwner()['id'] === $ownerId) {
-                $tagCount['myGists'] += 1;
-            }
-
-            if ($gist->isStarred() === true) {
-                $tagCount['starred'] += 1;
-            }
-
-            $tagCount['all'] += 1;
-        }
-
-        return $tagCount;
-    }
-
-    /**
      * Convert date to 'Y-m-d H:i:s' format
      *
      * @param string $date
@@ -108,8 +45,6 @@ class Gist
 
         return $convertedDate;
     }
-
-    // Accessors and mutators
 
     /**
      * Set Gist description and tags

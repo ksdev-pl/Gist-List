@@ -73,6 +73,7 @@ App::bind('GistController', function($app) {
     return new GistController(
         new GistFinder(App::make('GuzzleGithubApi'), new GistFactory()),
         new UserFinder(App::make('GuzzleGithubApi'), new UserFactory()),
+        new GistCounterFactory(),
         new GistBackupHandlerFactory()
     );
 });

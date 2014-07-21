@@ -8,22 +8,28 @@ class GistController extends Controller
     /** @type \UserFinder $userFinder */
     private $userFinder;
 
+    /** @type \GistCounterFactory $gistCounterFactory */
+    private $gistCounterFactory;
+
     /** @type \GistBackupHandlerFactory $gistBackupHandlerFactory */
     private $gistBackupHandlerFactory;
 
     /**
      * @param GistFinder $gistFinder
      * @param UserFinder $userFinder
+     * @param GistCounterFactory $gistCounterFactory
      * @param GistBackupHandlerFactory $gistBackupHandlerFactory
      */
     function __construct(
         GistFinder $gistFinder,
         UserFinder $userFinder,
+        GistCounterFactory $gistCounterFactory,
         GistBackupHandlerFactory $gistBackupHandlerFactory
     )
     {
         $this->gistFinder = $gistFinder;
         $this->userFinder = $userFinder;
+        $this->gistCounterFactory = $gistCounterFactory;
         $this->gistBackupHandlerFactory = $gistBackupHandlerFactory;
     }
 
@@ -36,11 +42,12 @@ class GistController extends Controller
     {
         $gists = $this->gistFinder->getAll();
         $user = $this->userFinder->getAuthenticatedUser();
-        $tagCount = Gist::getListOfCountedTags($gists, $user->getId());
+
+        $gistCounter = $this->gistCounterFactory->getInstance($gists, $user->getId());
 
         return View::make('gist.index', [
             'gists' => $gists,
-            'tagCount' => $tagCount,
+            'gistCounter' => $gistCounter,
             'user' => $user
         ]);
     }
