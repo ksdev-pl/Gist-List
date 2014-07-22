@@ -56,4 +56,20 @@ class GistTest extends TestCase
             $gistCounter->getTags()
         );
     }
+
+    public function testGetListOfCountedTagsWhenThereAreNoGists()
+    {
+        $gists = [];
+
+        $gistCounter = new GistCounter($gists, 0);
+
+        $this->assertEquals(0, $gistCounter->getPublic());
+        $this->assertEquals(0, $gistCounter->getPrivate());
+        $this->assertEquals(0, $gistCounter->getWithoutTag());
+        $this->assertEquals(0, $gistCounter->getAll());
+        $this->assertEquals(0, $gistCounter->getOwned());
+        $this->assertEquals(0, $gistCounter->getStarred());
+        $this->assertEquals([], $gistCounter->getTags()
+        );
+    }
 }
