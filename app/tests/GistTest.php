@@ -69,7 +69,6 @@ class GistTest extends TestCase
         $this->assertEquals(0, $gistCounter->getAll());
         $this->assertEquals(0, $gistCounter->getOwned());
         $this->assertEquals(0, $gistCounter->getStarred());
-        $this->assertEquals([], $gistCounter->getTags()
-        );
+        $this->assertEquals([], $gistCounter->getTags());
     }
 }
