@@ -133,13 +133,10 @@
                     @if ($gist->isStarred())
                     <i class="fa fa-star fa-fw text-star"></i>
                     @endif
-                    <a href="{{ $gist->getHtmlUrl() }}" target="_blank">
-                        @if ($gist->getDescription() != '')
-                        {{{ $gist->getDescription() }}}
-                        @else
-                        No description
-                        @endif
-                    </a><br>
+                    <a href="{{ $gist->getHtmlUrl() }}" target="_blank">{{{
+                        $gist->getDescription() ? $gist->getDescription() : 'No description'
+                    }}}</a>
+                    <br>
                     @foreach ($gist->getFiles() as $file)
                     <a
                         href="{{ $file['raw_url'] }}"
