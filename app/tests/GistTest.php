@@ -5,19 +5,19 @@ class GistTest extends TestCase
     public function testGetListOfCountedTags()
     {
         $gist1 = new Gist();
-        $gist1->setDescriptionAndTags('description #tag1 #tag2');
+        $gist1->setDescriptionAndTags('description #BBB_tag #ddd_tag #aaa10_tag');
         $gist1->setPublic(false);
         $gist1->setOwner(['id' => 0]);
         $gist1->setStarred(false);
 
         $gist2 = new Gist();
-        $gist2->setDescriptionAndTags('description #tag1 #tag2 #tag3');
+        $gist2->setDescriptionAndTags('description #BBB_tag #ddd_tag #aaa2_tag');
         $gist2->setPublic(false);
         $gist2->setOwner(['id' => 0]);
         $gist2->setStarred(false);
 
         $gist3 = new Gist();
-        $gist3->setDescriptionAndTags('description #tag3');
+        $gist3->setDescriptionAndTags('description #aaa1_tag #ccc_tag');
         $gist3->setPublic(false);
         $gist3->setOwner(['id' => 0]);
         $gist3->setStarred(true);
@@ -41,15 +41,27 @@ class GistTest extends TestCase
         $this->assertEquals(
             [
                 0 => [
-                    'name'  => '#tag1',
-                    'count' => 2
+                    'name'  => '#aaa1_tag',
+                    'count' => 1
                 ],
                 1 => [
-                    'name'  => '#tag2',
-                    'count' => 2
+                    'name'  => '#aaa2_tag',
+                    'count' => 1
                 ],
                 2 => [
-                    'name'  => '#tag3',
+                    'name'  => '#aaa10_tag',
+                    'count' => 1
+                ],
+                3 => [
+                    'name'  => '#BBB_tag',
+                    'count' => 2
+                ],
+                4 => [
+                    'name'  => '#ccc_tag',
+                    'count' => 1
+                ],
+                5 => [
+                    'name'  => '#ddd_tag',
                     'count' => 2
                 ]
             ],

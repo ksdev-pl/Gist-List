@@ -101,6 +101,20 @@ class GistCounter
                 $this->tags[$tagAlreadyCounted]['count'] += 1;
             }
         }
+
+        $this->sortTagsByName();
+    }
+
+    /**
+     * Sort tags by name
+     */
+    private function sortTagsByName()
+    {
+        foreach ($this->tags as $key => $row) {
+            $name[$key]  = $row['name'];
+        }
+
+        array_multisort($name, SORT_NATURAL | SORT_FLAG_CASE, $this->tags);
     }
 
     /**
