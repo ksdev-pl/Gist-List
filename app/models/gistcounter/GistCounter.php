@@ -110,8 +110,9 @@ class GistCounter
      */
     private function sortTagsByName()
     {
+        $name = [];
         foreach ($this->tags as $key => $row) {
-            $name[$key]  = $row['name'];
+            $name[$key] = $row['name'];
         }
 
         array_multisort($name, SORT_NATURAL | SORT_FLAG_CASE, $this->tags);
