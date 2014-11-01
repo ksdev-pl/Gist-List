@@ -29,10 +29,7 @@ $(document).ready(function() {
     var table = $('table#gists').DataTable({
         order: [6, 'desc'],
         lengthMenu: [10, 15, 25, 50, 100],
-        iDisplayLength: numberOfRows,
-        language: {
-            search: 'Search: '
-        }
+        iDisplayLength: numberOfRows
     });
 
     $('div.dataTables_filter input').focus();

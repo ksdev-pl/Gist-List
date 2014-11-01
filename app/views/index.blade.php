@@ -2,7 +2,7 @@
 
 @section('styles')
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=RobotoDraft:300,400'>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/2.1.2/octicons.min.css">
 @stop
 
 @section('body')
