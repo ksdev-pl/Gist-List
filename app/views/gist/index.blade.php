@@ -61,7 +61,7 @@
             <span class="pull-right">{{ $gistCounter->getPrivate() }}</span>
         </a>
     </div>
-    <div class="list-group">
+    <div class="list-group scrollable-list">
         <a href="#" class="search-filter list-group-item filter-no-tag">
             Without Tag
             <span class="pull-right">{{ $gistCounter->getWithoutTag() }}</span>

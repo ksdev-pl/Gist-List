@@ -159,7 +159,7 @@ div.panel-heading a {
     padding: 10px 15px;
 }
 
-div.panel-heading a:hover {
+div.panel-heading a:hover, div.panel-heading a:focus {
     text-decoration: none;
 }
 

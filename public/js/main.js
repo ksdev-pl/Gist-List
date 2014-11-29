@@ -19,7 +19,7 @@ $(document).ready(function() {
         $(this).css('background-color', stringToColour($(this).text()))
     });
 
-    if (window.screen.height < 1050) {
+    if ($(window).height() < 1050) {
         var numberOfRows = 10;
     }
     else {
@@ -149,4 +149,40 @@ $(document).ready(function() {
            }
         });
     });
+
+    var scrollableListHeight = $("div.scrollable-list").height();
+
+    function refreshScrollableListHeight() {
+        var gistsWrapperHeight = $("#gists_wrapper").height();
+        var scrollableList = $("div.scrollable-list");
+        var remainingSpace = gistsWrapperHeight - 381;
+        var newScrollableListHeight = Math.floor(remainingSpace / 41) * 41 + 1;
+
+        if (remainingSpace < scrollableListHeight) {
+            scrollableList.css("height", newScrollableListHeight);
+
+            if (scrollableList.css("overflow-y") != "scroll") {
+                scrollableList.css({
+                    "overflow-y": "scroll"
+                });
+            }
+        }
+        else {
+            if (scrollableList.css("overflow-y") == "scroll") {
+                scrollableList.css({
+                    "height": "inherit",
+                    "overflow-y": "inherit"
+                });
+                // http://stackoverflow.com/questions/8840580/force-dom-redraw-refresh-on-chrome-mac
+                scrollableList.hide().show(0);
+            }
+        }
+    }
+
+    $("#gists_length").find("select").on("change", function() {
+        refreshScrollableListHeight();
+    });
+
+    refreshScrollableListHeight();
+
 });
