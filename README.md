@@ -18,9 +18,9 @@ __Clear Organization of Your Gists:__
 * PHP 5.4 (short array syntax)
 * [__Laravel Framework:__](https://github.com/laravel/framework) 4.2.*
 * [__Guzzle:__](https://github.com/guzzle/guzzle) ~4.0
-* [__DataTables:__](https://github.com/DataTables/DataTables) 1.10.3
+* [__DataTables:__](https://github.com/DataTables/DataTables) 1.10.4
 * [__jQuery File Download__](https://github.com/johnculviner/jquery.fileDownload)
-* [__Twitter Bootstrap:__](https://github.com/twbs/bootstrap) 3.3.0
+* [__Twitter Bootstrap:__](https://github.com/twbs/bootstrap) 3.3.1
 * [__Font Awesome:__](https://github.com/FortAwesome/Font-Awesome) 4.2.0
 * [__Octicons:__](https://github.com/github/octicons) 2.1.2
 
