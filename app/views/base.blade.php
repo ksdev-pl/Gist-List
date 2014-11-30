@@ -29,6 +29,7 @@
 <script src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 <script src="/js/jquery.fileDownload.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 @yield('scripts')
 <script src="/js/main.js"></script>
 <script>

@@ -19,11 +19,14 @@ $(document).ready(function() {
         $(this).css('background-color', stringToColour($(this).text()))
     });
 
-    if ($(window).height() < 1050) {
-        var numberOfRows = 10;
+    if ($.cookie('table_length') != undefined) {
+        var numberOfRows = parseInt($.cookie('table_length'));
+    }
+    else if ($(window).height() < 1050) {
+        var numberOfRows = 15;
     }
     else {
-        var numberOfRows = 15;
+        var numberOfRows = 25;
     }
 
     var table = $('table#gists').DataTable({
@@ -153,9 +156,10 @@ $(document).ready(function() {
     var scrollableListHeight = $("div.scrollable-list").height();
 
     function refreshScrollableListHeight() {
-        var gistsWrapperHeight = $("#gists_wrapper").height();
+        var windowHeight = $(window).height();
         var scrollableList = $("div.scrollable-list");
-        var remainingSpace = gistsWrapperHeight - 381;
+        var actionsWrapperHeight = $("#actions-wrapper").height();
+        var remainingSpace = windowHeight - actionsWrapperHeight - 40;
         var newScrollableListHeight = Math.floor(remainingSpace / 41) * 41 + 1;
 
         if (remainingSpace < scrollableListHeight) {
@@ -179,10 +183,102 @@ $(document).ready(function() {
         }
     }
 
-    $("#gists_length").find("select").on("change", function() {
+    function refreshLeftMenuHeight() {
+        var windowHeight = $(window).height();
+        $("div.left-menu").height(windowHeight - 20);
+    }
+
+    $(window).resize(function() {
         refreshScrollableListHeight();
+        refreshLeftMenuHeight();
     });
 
     refreshScrollableListHeight();
+    refreshLeftMenuHeight();
+
+    $('#accordion').on('shown.bs.collapse hidden.bs.collapse', function () {
+        refreshScrollableListHeight();
+    });
+
+    var tableOptionsHtml = '<div id="table-options" class="btn-group">'
+        + '<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">'
+        + '<i class="fa fa-cog"></i> <span class="caret"></span>'
+        + '</button>'
+        + '<ul class="dropdown-menu pull-right" role="menu">'
+        + '<li><a id="toggle-files" href="#">Toggle files visibility</a></li>'
+        + '</ul>'
+        + '</div>';
+
+    $("#gists_filter").before(tableOptionsHtml);
+
+    $("#toggle-files").on("click", function(event) {
+        event.preventDefault();
+
+        setCookieToggleFilesVisibility();
+        toggleFilesVisibility();
+    });
+
+    function setCookieToggleFilesVisibility() {
+        if ($.cookie('files_visibility') == '1') {
+            $.cookie('files_visibility', '0', {expires: 7, secure: true});
+        }
+        else {
+            $.cookie('files_visibility', '1', {expires: 7, secure: true});
+        }
+    }
+
+    function toggleFilesVisibility() {
+        if ($.cookie('files_visibility') == '1') {
+            $("code").show();
+        }
+        else {
+            $("code").hide();
+        }
+    }
+
+    table.on('draw.dt', function () {
+        toggleFilesVisibility();
+    } );
+
+    toggleFilesVisibility();
+
+    function setCookieTableLength(lenght) {
+        $.cookie('table_length', lenght, {expires: 7, secure: true});
+    }
+
+    table.on('length.dt', function (e, settings, len) {
+        setCookieTableLength(len);
+    } );
+
+    function setCookieActionsCollapsed() {
+        if ($("#collapseOne").hasClass("in")) {
+            $.cookie('actions_collapsed', '1', {expires: 7, secure: true});
+        }
+        else {
+            $.cookie('actions_collapsed', '0', {expires: 7, secure: true});
+        }
+    }
+
+    function toggleActionsCollapsed() {
+        if ($.cookie('actions_collapsed') == '1') {
+            $("#collapseOne").removeClass("in");
+        }
+        else {
+            $("#collapseOne").addClass("in");
+        }
+    }
+
+    $("#actions-collapse").on("click", function() {
+        setCookieActionsCollapsed();
+    });
+
+    toggleActionsCollapsed();
+
+});
+
+$(window).load(function() {
+
+    $("#loader").fadeOut("fast");
+    $(".mask").fadeOut("fast");
 
 });

@@ -5,61 +5,67 @@
 @stop
 
 @section('body')
+<!-- Preloader -->
+<div class="mask">
+    <div id="loader"></div>
+</div>
 <div class="left-menu">
-    <div class="media">
-        <a class="pull-left" href="https://gist.github.com/{{ $user->getLogin() }}" target="_blank">
-            <img class="media-object avatar" src="{{ $user->getAvatarUrl() }}">
-        </a>
-        <div class="media-body">
-            <h4 class="media-heading">{{{ $user->getName() }}}</h4>
-            <span id="user-login">{{{ $user->getLogin() }}}</span><br>
-            <a href="/signout">Sign out</a>
-        </div>
-    </div>
-    <br>
-    <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading text-center">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                        Actions
-                    </a>
-                </h4>
+    <div id="actions-wrapper">
+        <div class="media">
+            <a class="pull-left" href="https://gist.github.com/{{ $user->getLogin() }}" target="_blank">
+                <img class="media-object avatar" src="{{ $user->getAvatarUrl() }}">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">{{{ $user->getName() }}}</h4>
+                <span id="user-login">{{{ $user->getLogin() }}}</span><br>
+                <a href="/signout">Sign out</a>
             </div>
-            <div id="collapseOne" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <a href="https://gist.github.com" class="btn btn-default btn-block" target="_blank">
-                        New Gist
-                    </a>
-                    <br>
-                    <button class="btn btn-default btn-block btn-backup">
-                        Backup Gists
-                    </button>
+        </div>
+        <br>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h4 class="panel-title">
+                        <a id="actions-collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            Actions
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <a href="https://gist.github.com" class="btn btn-default btn-block" target="_blank">
+                            New Gist
+                        </a>
+                        <br>
+                        <button class="btn btn-default btn-block btn-backup">
+                            Backup Gists
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="list-group">
-        <a href="#" class="search-filter list-group-item filter-all active">
-            All
-            <span class="pull-right">{{ $gistCounter->getAll() }}</span>
-        </a>
-        <a href="#" class="search-filter list-group-item filter-my-gists">
-            My Gists
-            <span class="pull-right">{{ $gistCounter->getOwned() }}</span>
-        </a>
-        <a href="#" class="search-filter list-group-item filter-starred">
-            Starred
-            <span class="pull-right">{{ $gistCounter->getStarred() }}</span>
-        </a>
-        <a href="#" class="search-filter list-group-item filter-public">
-            Public
-            <span class="pull-right">{{ $gistCounter->getPublic() }}</span>
-        </a>
-        <a href="#" class="search-filter list-group-item filter-private">
-            Private
-            <span class="pull-right">{{ $gistCounter->getPrivate() }}</span>
-        </a>
+        <div class="list-group">
+            <a href="#" class="search-filter list-group-item filter-all active">
+                All
+                <span class="pull-right">{{ $gistCounter->getAll() }}</span>
+            </a>
+            <a href="#" class="search-filter list-group-item filter-my-gists">
+                My Gists
+                <span class="pull-right">{{ $gistCounter->getOwned() }}</span>
+            </a>
+            <a href="#" class="search-filter list-group-item filter-starred">
+                Starred
+                <span class="pull-right">{{ $gistCounter->getStarred() }}</span>
+            </a>
+            <a href="#" class="search-filter list-group-item filter-public">
+                Public
+                <span class="pull-right">{{ $gistCounter->getPublic() }}</span>
+            </a>
+            <a href="#" class="search-filter list-group-item filter-private">
+                Private
+                <span class="pull-right">{{ $gistCounter->getPrivate() }}</span>
+            </a>
+        </div>
     </div>
     <div class="list-group scrollable-list">
         <a href="#" class="search-filter list-group-item filter-no-tag">
@@ -140,7 +146,7 @@
                     @foreach ($gist->getFiles() as $file)
                     <a
                         href="{{ $file['raw_url'] }}"
-                        target="_blank"><code>{{{ $file['filename'] }}}</code></a>
+                        target="_blank"><code style="display: none;">{{{ $file['filename'] }}}</code></a>
                     @endforeach
                 </td>
                 <td>

@@ -11,7 +11,7 @@ __Clear Organization of Your Gists:__
 * __Sort and Search__: Unleash the power of a sortable table! ;-) With the help of the great DataTables instantly paginate, sort, search and filter all your gists using clear and simple interface.
 * __Keep your privacy__: No user data is stored apart from the usual server statistics and temporary files needed to perform backup - these are deleted every hour by a cron job. No database is used - gists are fetched anew with every connection.
 
-![Gist List](https://dl.dropboxusercontent.com/s/j12ideo7y2t9ghg/gistlist-browser.png)
+![Gist List](https://dl.dropboxusercontent.com/s/2u302ys3g4odfff/gist-list.png)
 
 ## Dependencies
 
