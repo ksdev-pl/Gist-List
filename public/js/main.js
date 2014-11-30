@@ -220,10 +220,10 @@ $(document).ready(function() {
 
     function setCookieToggleFilesVisibility() {
         if ($.cookie('files_visibility') == '1') {
-            $.cookie('files_visibility', '0', {expires: 7, secure: true});
+            $.cookie('files_visibility', '0', {expires: 30, secure: true});
         }
         else {
-            $.cookie('files_visibility', '1', {expires: 7, secure: true});
+            $.cookie('files_visibility', '1', {expires: 30, secure: true});
         }
     }
 
@@ -243,7 +243,7 @@ $(document).ready(function() {
     toggleFilesVisibility();
 
     function setCookieTableLength(lenght) {
-        $.cookie('table_length', lenght, {expires: 7, secure: true});
+        $.cookie('table_length', lenght, {expires: 30, secure: true});
     }
 
     table.on('length.dt', function (e, settings, len) {
@@ -252,10 +252,10 @@ $(document).ready(function() {
 
     function setCookieActionsCollapsed() {
         if ($("#collapseOne").hasClass("in")) {
-            $.cookie('actions_collapsed', '1', {expires: 7, secure: true});
+            $.cookie('actions_collapsed', '1', {expires: 30, secure: true});
         }
         else {
-            $.cookie('actions_collapsed', '0', {expires: 7, secure: true});
+            $.cookie('actions_collapsed', '0', {expires: 30, secure: true});
         }
     }
 
