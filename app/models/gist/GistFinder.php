@@ -73,7 +73,9 @@ class GistFinder
     {
         $gistObject = $this->gistFactory->getInstance();
         $gistObject->setId($gistArray['id']);
-        $gistObject->setOwner($gistArray['owner']);
+        $gistObject->setOwner(
+            isset($gistArray['owner']) ? $gistArray['owner'] : ['id' => null, 'login' => 'anonymous']
+        );
         $gistObject->setDescriptionAndTags($gistArray['description']);
         $gistObject->setCreatedAt($gistArray['created_at']);
         $gistObject->setUpdatedAt($gistArray['updated_at']);
@@ -120,7 +122,7 @@ class GistFinder
 
         // Loop starred gists
         foreach ($gists as $gist) {
-            if ($gist['starred'] && $gist['owner']['id'] === $userId) {
+            if ($gist['starred'] && isset($gist['owner']) && $gist['owner']['id'] === $userId) {
                 $userStarredGistsIds[] = $gist['id'];
             }
         }

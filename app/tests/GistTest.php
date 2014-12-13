@@ -28,16 +28,22 @@ class GistTest extends TestCase
         $gist4->setOwner(['id' => 1]);
         $gist4->setStarred(true);
 
-        $gists = [$gist1, $gist2, $gist3, $gist4];
+        $gist5 = new Gist();
+        $gist5->setDescriptionAndTags('description');
+        $gist5->setPublic(true);
+        $gist5->setOwner(['id' => null]);
+        $gist5->setStarred(true);
+
+        $gists = [$gist1, $gist2, $gist3, $gist4, $gist5];
 
         $gistCounter = new GistCounter($gists, 0);
 
-        $this->assertEquals(1, $gistCounter->getPublic());
+        $this->assertEquals(2, $gistCounter->getPublic());
         $this->assertEquals(3, $gistCounter->getPrivate());
-        $this->assertEquals(1, $gistCounter->getWithoutTag());
-        $this->assertEquals(4, $gistCounter->getAll());
+        $this->assertEquals(2, $gistCounter->getWithoutTag());
+        $this->assertEquals(5, $gistCounter->getAll());
         $this->assertEquals(3, $gistCounter->getOwned());
-        $this->assertEquals(2, $gistCounter->getStarred());
+        $this->assertEquals(3, $gistCounter->getStarred());
         $this->assertEquals(
             [
                 0 => [

@@ -96,6 +96,19 @@ class GistFinderTest extends TestCase
                         'owner'       => [
                             'id' => 0
                         ]
+                    ],
+                    2 => [
+                        'id'          => 20,
+                        'description' => 'description',
+                        'created_at'  => '2010-04-14T02:15:15Z',
+                        'updated_at'  => '2011-06-20T11:34:15Z',
+                        'public'      => true,
+                        'html_url'    => 'https://github.com/octocat',
+                        'files'       => [
+                            'test.md' => [
+                                'filename' => 'test.md'
+                            ]
+                        ]
                     ]
                 ]
             );
@@ -115,7 +128,7 @@ class GistFinderTest extends TestCase
         $this->assertEquals(0, $gists[2]->getId());
         $this->assertEquals(true, $gists[2]->isStarred());
 
-        $this->assertFalse(isset($gists[3]));
+        $this->assertFalse(isset($gists[4]));
     }
 
     public function testGetAllWhenUserGistsArrayIsEmpty()
