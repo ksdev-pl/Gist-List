@@ -110,3 +110,6 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+// Disable E_STRICT errors
+error_reporting(E_ALL ^ E_STRICT);
