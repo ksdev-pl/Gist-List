@@ -57,7 +57,7 @@ App::error(function(Exception $exception, $code)
 
 App::error(function(NoSessionToken $exception)
 {
-    Log::error($exception);
+    // Log::error($exception);
 
     return Redirect::secure('/');
 });
