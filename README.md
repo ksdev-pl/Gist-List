@@ -1,4 +1,4 @@
-# [Gist List](https://gistlist.nfshost.com)
+# [Gist List](https://gistlist.ksdev.pl)
 
 [![Build Status](https://img.shields.io/travis/ksdev-pl/Gist-List.svg?style=flat-square)](https://travis-ci.org/ksdev-pl/Gist-List)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/ksdev-pl/Gist-List.svg?style=flat-square)](https://scrutinizer-ci.com/g/ksdev-pl/Gist-List/?branch=master)
