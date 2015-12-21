@@ -15,10 +15,10 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('github_id')->unique();
-            $table->string('name');
-            $table->string('nickname');
-            $table->string('avatar');
-            $table->string('token');
+            $table->string('name')->nullable();
+            $table->string('nickname')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
