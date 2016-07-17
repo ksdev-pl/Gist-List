@@ -1,9 +1,82 @@
+// ---------------------------------------------------------------------------------------------------------------------
+// Require modules
+// ---------------------------------------------------------------------------------------------------------------------
+
+const Vue = require('vue');
+const VueResource = require('vue-resource');
+
+const TableGrid = require('../components/TableGrid.vue');
+const LeftMenu = require('../components/LeftMenu.vue');
+// const AjaxTableGrid = require('../components/AjaxTableGrid.vue');
+// const AjaxForm = require('../components/AjaxForm.vue');
+
+const TinyColor = require('tinycolor2');
+
+window.$ = window.jQuery = require('jquery');
+require('bootstrap-sass');
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Setup app
+// ---------------------------------------------------------------------------------------------------------------------
+
+Vue.config.debug = true;
+Vue.use(VueResource);
+Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+
+new Vue({
+    el: 'body',
+    components: {
+        TableGrid,
+        LeftMenu
+    },
+    data: {
+        store: window.hasOwnProperty('store') ? window.store : {}
+    },
+    computed: {
+        tagColors() {
+            let tagColors = {};
+            _.forEach(this.store.tags, tag => {
+                tagColors[tag] = this.stringToColor(tag);
+            }, this);
+            return tagColors;
+        },
+    },
+    methods: {
+        stringToColor: str => {
+            if (str == '#none') {
+                return '#777777'
+            }
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = str.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            let color = '#';
+            for (let j = 0; j < 3; j++) {
+                let value = (hash >> (j * 8)) & 0xFF;
+                color += ('00' + value.toString(16)).substr(-2);
+            }
+            let tc = TinyColor(color);
+            let brightness = tc.getBrightness();
+            if (brightness > 180) {
+                tc.darken(brightness - 180);
+            }
+            return tc.toString();
+        }
+    }
+});
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// ?
+// ---------------------------------------------------------------------------------------------------------------------
+
+
 /*** Globals ***/
 
-Messenger.options = {
+/*Messenger.options = {
     extraClasses: 'messenger-fixed messenger-on-top messenger-on-right',
     theme: 'flat'
-};
+};*/
 
 /*** Window load ***/
 
@@ -24,14 +97,14 @@ $(document).ready(function() {
 
     // Przepisać poniższe w opaciu o vue
 
-    var scrollableListHeight = $("div.scrollable-list").height();
+    let scrollableListHeight = $("div.scrollable-list").height();
 
     function refreshScrollableListHeight() {
-        var windowHeight = $(window).height();
-        var scrollableList = $("div.scrollable-list");
-        var actionsWrapperHeight = $("#actions-wrapper").height();
-        var remainingSpace = windowHeight - actionsWrapperHeight - 40;
-        var newScrollableListHeight = Math.floor(remainingSpace / 41) * 41 + 1;
+        let windowHeight = $(window).height();
+        let scrollableList = $("div.scrollable-list");
+        let actionsWrapperHeight = $("#actions-wrapper").height();
+        let remainingSpace = windowHeight - actionsWrapperHeight - 40;
+        let newScrollableListHeight = Math.floor(remainingSpace / 41) * 41 + 1;
 
         if (remainingSpace < scrollableListHeight) {
             scrollableList.css("height", newScrollableListHeight);
@@ -68,7 +141,7 @@ $(document).ready(function() {
 
 /*** Objects ***/
 
-var tools = {
+let tools = {
 
     hideLoaderMask: function() {
         $("#loader").fadeOut("fast");
