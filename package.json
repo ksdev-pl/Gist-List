@@ -4,6 +4,14 @@
     "gulp": "^3.8.8"
   },
   "dependencies": {
-    "laravel-elixir": "^4.0.0"
+    "bootstrap-sass": "^3.0.0",
+    "font-awesome": "^4.5.0",
+    "laravel-elixir": "^4.0.0",
+    "laravel-elixir-vueify": "^1.0.3",
+    "lodash": "^4.7.0",
+    "messenger": "git://github.com/hubspot/messenger",
+    "tinycolor2": "^1.4.1",
+    "vue": "^1.0.21",
+    "vue-resource": "^0.7.0"
   }
 }
