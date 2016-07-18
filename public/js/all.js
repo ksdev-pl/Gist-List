@@ -41513,6 +41513,110 @@ exports.insert = function (css) {
 
 },{}],10:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("\n.tag {\n    cursor: pointer;\n}\n")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const TableGrid = require('../components/TableGrid.vue');
+const LeftMenu = require('../components/LeftMenu.vue');
+
+module.exports = {
+    data() {
+        return {
+            store: this.$root.store
+        }
+    },
+    components: {
+        TableGrid,
+        LeftMenu
+    }
+}
+
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<left-menu :gists=\"store.gists\" :user=\"store.user\" :tags=\"store.tags\" :search-query.sync=\"store.searchQuery\">\n</left-menu>\n\n<div class=\"main\">\n    <div class=\"container-fluid\">\n        <table-grid :rows-data=\"store.gists\" :columns=\"store.columns\" :search-query.sync=\"store.searchQuery\" sort-by-column=\"updated\" table-cell-component=\"GistsTableCell\">\n        </table-grid>\n    </div>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.dispose(function () {
+    __vueify_insert__.cache["\n.tag {\n    cursor: pointer;\n}\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-7187a2c2", module.exports)
+  } else {
+    hotAPI.update("_v-7187a2c2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../components/LeftMenu.vue":12,"../components/TableGrid.vue":14,"vue":8,"vue-hot-reload-api":6,"vueify/lib/insert-css":9}],11:[function(require,module,exports){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = {
+    props: {
+        cellData: {
+            required: true
+        },
+        column: {
+            type: Object,
+            required: true
+        }
+    },
+    methods: {
+        filterBy(query) {
+            this.$dispatch('searchQuery', query);
+        }
+    }
+}
+
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<template v-if=\"column.key == 'tags'\">\n    <span v-for=\"tag in cellData\" class=\"label tag\" @click=\"filterBy(tag)\" :style=\"{marginRight: '5px', backgroundColor: $root.tagColors[tag]}\">\n        {{ tag }}\n    </span>\n</template>\n<template v-if=\"['tags'].indexOf(column.key) == -1\">\n    {{ cellData }}\n</template>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-665c7f11", module.exports)
+  } else {
+    hotAPI.update("_v-665c7f11", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":8,"vue-hot-reload-api":6}],12:[function(require,module,exports){
+var __vueify_insert__ = require("vueify/lib/insert-css")
 var __vueify_style__ = __vueify_insert__.insert("\n\n")
 
 
@@ -41596,8 +41700,6 @@ var __vueify_style__ = __vueify_insert__.insert("\n\n")
 
 
 
-window._ = require('lodash');
-
 module.exports = {
     props: {
         gists: {
@@ -41673,7 +41775,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-d3578a92", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"lodash":4,"vue":8,"vue-hot-reload-api":6,"vueify/lib/insert-css":9}],11:[function(require,module,exports){
+},{"vue":8,"vue-hot-reload-api":6,"vueify/lib/insert-css":9}],13:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
 var __vueify_style__ = __vueify_insert__.insert("\n.pagination {\n    margin: 0;\n}\n\n.pagination-info {\n    padding-top: 7px;\n}\n")
 
@@ -41767,9 +41869,12 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-50b5d80b", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":8,"vue-hot-reload-api":6,"vueify/lib/insert-css":9}],12:[function(require,module,exports){
+},{"vue":8,"vue-hot-reload-api":6,"vueify/lib/insert-css":9}],14:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
 var __vueify_style__ = __vueify_insert__.insert("\ntable .arrow {\n    display: inline-block;\n    vertical-align: middle;\n    width: 0;\n    height: 0;\n    margin-left: 5px;\n}\ntable .arrow.asc {\n    border-left: 4px solid transparent;\n    border-right: 4px solid transparent;\n    border-bottom: 4px solid #fff;\n}\ntable .arrow.dsc {\n    border-left: 4px solid transparent;\n    border-right: 4px solid transparent;\n    border-top: 4px solid #fff;\n}\n\nth {\n    cursor: pointer;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -user-select: none;\n}\n\nth.selected {\n    color: #337ab7;\n}\n\nth.selected .arrow {\n    border-bottom-color: #337ab7;\n    border-top-color: #337ab7;\n}\n\n.table > tbody + tbody.tbody-no-border {\n    border-top: none;\n}\n")
+
+
+
 
 
 
@@ -41884,6 +41989,8 @@ var __vueify_style__ = __vueify_insert__.insert("\ntable .arrow {\n    display: 
 const Vue = require('vue');
 const Pagination = require('../components/Pagination.vue');
 
+const GistsTableCell = require('../components/GistsTableCell.vue');
+
 module.exports = {
     props: {
         rowsData: {
@@ -41898,10 +42005,6 @@ module.exports = {
             type: String,
             required: true
         },
-        tableCellPartial: {
-            type: String,
-            required: true
-        },
         rowDetailsPartial: {
             type: String,
             default: null
@@ -41909,13 +42012,18 @@ module.exports = {
         searchQuery: {
             type: String,
             default: ''
+        },
+        tableCellComponent: {
+            type: String,
+            required: true
         }
     },
     components: {
-        Pagination
+        Pagination,
+
+        GistsTableCell
     },
     created() {
-        Vue.partial(this.tableCellPartial, this.tableCellPartial);
         if (this.rowDetailsPartial) {
             Vue.partial(this.rowDetailsPartial, this.rowDetailsPartial);
         }
@@ -41949,11 +42057,17 @@ module.exports = {
         searchQuery() {
             this.page = 0;
         }
+    },
+    events: {
+        searchQuery(query) {
+            this.searchQuery = query;
+        }
     }
+
 }
 
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<form>\n    <div class=\"form-group has-feedback\">\n        <input class=\"form-control\" v-model=\"searchQuery\" debounce=\"200\">\n        <span class=\"glyphicon glyphicon-search form-control-feedback\"></span>\n    </div>\n</form>\n<div class=\"clearfix\">\n    <div class=\"table-responsive\">\n        <table class=\"table table-hover\">\n            <thead>\n                <tr>\n                    <th v-for=\"column in columns\" @click=\"sortBy(column.key)\" :class=\"{selected: sortByColumn == column.key}\" id=\"table-th-{{ column.key }}\">\n                        {{ column.name | capitalize }}\n                            <span class=\"arrow\" :class=\"sortOrder > 0 ? 'asc' : 'dsc'\">\n                            </span>\n                    </th>\n                </tr>\n            </thead>\n            <tbody :class=\"{'tbody-no-border': !rowDetailsPartial}\" v-for=\"rowData in filteredRowsData\n                       | orderBy sortByColumn sortOrder\n                       | limitBy limit offset\">\n                <tr>\n                    <td v-for=\"column in columns\">\n                        <partial :name=\"tableCellPartial\"></partial>\n                    </td>\n                </tr>\n                <tr v-if=\"rowDetailsPartial\">\n                    <td :colspan=\"columns.length\">\n                        <partial :name=\"rowDetailsPartial\"></partial>\n                    </td>\n                </tr>\n            </tbody>\n            <tbody v-if=\"filteredRowsData.length == 0\">\n                <tr>\n                    <td :colspan=\"columns.length\">Nothing found</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    <pagination :num-rows=\"filteredRowsData.length\" :limit.sync=\"limit\" :offset.sync=\"offset\" :page.sync=\"page\">\n    </pagination>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<form>\n    <div class=\"form-group has-feedback\">\n        <input class=\"form-control\" v-model=\"searchQuery\" debounce=\"200\">\n        <span class=\"glyphicon glyphicon-search form-control-feedback\"></span>\n    </div>\n</form>\n<div class=\"clearfix\">\n    <div class=\"table-responsive\">\n        <table class=\"table table-hover\">\n            <thead>\n                <tr>\n                    <th v-for=\"column in columns\" @click=\"sortBy(column.key)\" :class=\"{selected: sortByColumn == column.key}\" id=\"table-th-{{ column.key }}\">\n                        {{ column.name | capitalize }}\n                            <span class=\"arrow\" :class=\"sortOrder > 0 ? 'asc' : 'dsc'\">\n                            </span>\n                    </th>\n                </tr>\n            </thead>\n            <tbody :class=\"{'tbody-no-border': !rowDetailsPartial}\" v-for=\"rowData in filteredRowsData\n                       | orderBy sortByColumn sortOrder\n                       | limitBy limit offset\">\n                <tr>\n                    <td v-for=\"column in columns\">\n                        <component :is=\"tableCellComponent\" :cell-data=\"rowData[column.key]\" :column=\"column\">\n                        </component>\n                    </td>\n                </tr>\n                <tr v-if=\"rowDetailsPartial\">\n                    <td :colspan=\"columns.length\">\n                        <partial :name=\"rowDetailsPartial\"></partial>\n                    </td>\n                </tr>\n            </tbody>\n            <tbody v-if=\"filteredRowsData.length == 0\">\n                <tr>\n                    <td :colspan=\"columns.length\">Nothing found</td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    <pagination :num-rows=\"filteredRowsData.length\" :limit.sync=\"limit\" :offset.sync=\"offset\" :page.sync=\"page\">\n    </pagination>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -41968,25 +42082,24 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-0fa492d3", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../components/Pagination.vue":11,"vue":8,"vue-hot-reload-api":6,"vueify/lib/insert-css":9}],13:[function(require,module,exports){
+},{"../components/GistsTableCell.vue":11,"../components/Pagination.vue":13,"vue":8,"vue-hot-reload-api":6,"vueify/lib/insert-css":9}],15:[function(require,module,exports){
 'use strict';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Require modules
 // ---------------------------------------------------------------------------------------------------------------------
 
+window._ = require('lodash');
+window.$ = window.jQuery = require('jquery');
+
+require('bootstrap-sass');
+
 var Vue = require('vue');
 var VueResource = require('vue-resource');
 
-var TableGrid = require('../components/TableGrid.vue');
-var LeftMenu = require('../components/LeftMenu.vue');
-// const AjaxTableGrid = require('../components/AjaxTableGrid.vue');
-// const AjaxForm = require('../components/AjaxForm.vue');
+var GistsIndexPage = require('../components/GistsIndexPage.vue');
 
 var TinyColor = require('tinycolor2');
-
-window.$ = window.jQuery = require('jquery');
-require('bootstrap-sass');
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Setup app
@@ -41999,8 +42112,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 new Vue({
     el: 'body',
     components: {
-        TableGrid: TableGrid,
-        LeftMenu: LeftMenu
+        GistsIndexPage: GistsIndexPage
     },
     data: {
         store: window.hasOwnProperty('store') ? window.store : {}
@@ -42126,6 +42238,6 @@ var tools = {
 
 };
 
-},{"../components/LeftMenu.vue":10,"../components/TableGrid.vue":12,"bootstrap-sass":1,"jquery":2,"tinycolor2":5,"vue":8,"vue-resource":7}]},{},[13]);
+},{"../components/GistsIndexPage.vue":10,"bootstrap-sass":1,"jquery":2,"lodash":4,"tinycolor2":5,"vue":8,"vue-resource":7}]},{},[15]);
 
 //# sourceMappingURL=all.js.map

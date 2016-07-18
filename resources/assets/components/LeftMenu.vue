@@ -80,8 +80,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-    window._ = require('lodash');
-
     module.exports = {
         props: {
             gists: {

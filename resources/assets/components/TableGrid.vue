@@ -84,7 +84,10 @@ Partials example:
                            | limitBy limit offset">
                     <tr>
                         <td v-for="column in columns">
-                            <partial :name="tableCellPartial"></partial>
+                            <component :is="tableCellComponent"
+                                       :cell-data="rowData[column.key]"
+                                       :column="column">
+                            </component>
                         </td>
                     </tr>
                     <tr v-if="rowDetailsPartial">
@@ -112,6 +115,8 @@ Partials example:
     const Vue = require('vue');
     const Pagination = require('../components/Pagination.vue');
 
+    const GistsTableCell = require('../components/GistsTableCell.vue');
+
     module.exports = {
         props: {
             rowsData: {
@@ -126,10 +131,6 @@ Partials example:
                 type: String,
                 required: true
             },
-            tableCellPartial: {
-                type: String,
-                required: true
-            },
             rowDetailsPartial: {
                 type: String,
                 default: null
@@ -137,13 +138,18 @@ Partials example:
             searchQuery: {
                 type: String,
                 default: ''
+            },
+            tableCellComponent: {
+                type: String,
+                required: true
             }
         },
         components: {
-            Pagination
+            Pagination,
+
+            GistsTableCell
         },
         created() {
-            Vue.partial(this.tableCellPartial, this.tableCellPartial);
             if (this.rowDetailsPartial) {
                 Vue.partial(this.rowDetailsPartial, this.rowDetailsPartial);
             }
@@ -177,6 +183,12 @@ Partials example:
             searchQuery() {
                 this.page = 0;
             }
+        },
+        events: {
+            searchQuery(query) {
+                this.searchQuery = query;
+            }
         }
+
     }
 </script>

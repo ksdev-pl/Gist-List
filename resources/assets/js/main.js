@@ -2,18 +2,17 @@
 // Require modules
 // ---------------------------------------------------------------------------------------------------------------------
 
+window._ = require('lodash');
+window.$ = window.jQuery = require('jquery');
+
+require('bootstrap-sass');
+
 const Vue = require('vue');
 const VueResource = require('vue-resource');
 
-const TableGrid = require('../components/TableGrid.vue');
-const LeftMenu = require('../components/LeftMenu.vue');
-// const AjaxTableGrid = require('../components/AjaxTableGrid.vue');
-// const AjaxForm = require('../components/AjaxForm.vue');
+const GistsIndexPage = require('../components/GistsIndexPage.vue');
 
 const TinyColor = require('tinycolor2');
-
-window.$ = window.jQuery = require('jquery');
-require('bootstrap-sass');
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Setup app
@@ -26,8 +25,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('con
 new Vue({
     el: 'body',
     components: {
-        TableGrid,
-        LeftMenu
+        GistsIndexPage
     },
     data: {
         store: window.hasOwnProperty('store') ? window.store : {}
