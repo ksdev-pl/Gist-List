@@ -86,7 +86,7 @@ Partials example:
                         <td v-for="column in columns">
                             <component :is="tableCellComponent"
                                        :cell-data="rowData[column.key]"
-                                       :column="column">
+                                       :column-key="column.key">
                             </component>
                         </td>
                     </tr>
@@ -115,7 +115,7 @@ Partials example:
     const Vue = require('vue');
     const Pagination = require('../components/Pagination.vue');
 
-    const GistsTableCell = require('../components/GistsTableCell.vue');
+    const GistsTableCell = require('../components/gists/IndexTableCell.vue');
 
     module.exports = {
         props: {

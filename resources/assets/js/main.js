@@ -10,7 +10,7 @@ require('bootstrap-sass');
 const Vue = require('vue');
 const VueResource = require('vue-resource');
 
-const GistsIndexPage = require('../components/GistsIndexPage.vue');
+const GistsIndexPage = require('../components/gists/IndexPage.vue');
 
 const TinyColor = require('tinycolor2');
 

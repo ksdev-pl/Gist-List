@@ -24,8 +24,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-    const TableGrid = require('../components/TableGrid.vue');
-    const LeftMenu = require('../components/LeftMenu.vue');
+    const TableGrid = require('../TableGrid.vue');
+    const LeftMenu = require('../LeftMenu.vue');
 
     module.exports = {
         data() {

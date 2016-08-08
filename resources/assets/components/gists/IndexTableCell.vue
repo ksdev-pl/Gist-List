@@ -1,12 +1,12 @@
 <template>
-    <template v-if="column.key == 'tags'">
+    <template v-if="columnKey == 'tags'">
         <span v-for="tag in cellData" class="label tag"
               @click="filterBy(tag)"
               :style="{marginRight: '5px', backgroundColor: $root.tagColors[tag]}">
             {{ tag }}
         </span>
     </template>
-    <template v-if="['tags'].indexOf(column.key) == -1">
+    <template v-if="['tags'].indexOf(columnKey) == -1">
         {{ cellData }}
     </template>
 </template>
@@ -17,8 +17,8 @@
             cellData: {
                 required: true
             },
-            column: {
-                type: Object,
+            columnKey: {
+                type: String,
                 required: true
             }
         },
