@@ -50,7 +50,5 @@
 @endsection
 
 @section('content')
-
-
     <gists-index-page></gists-index-page>
 @endsection

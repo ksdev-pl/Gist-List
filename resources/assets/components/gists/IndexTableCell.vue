@@ -6,7 +6,18 @@
             {{ tag }}
         </span>
     </template>
-    <template v-if="['tags'].indexOf(columnKey) == -1">
+    <template v-if="columnKey == 'description'">
+        <div>{{ cellData }}</div>
+        <div>
+            <a target="_blank"
+               style="margin-right: 5px"
+               v-for="file in rowData.files"
+               :href="file.raw_url">
+                <code>{{ file.filename }}</code>
+            </a>
+        </div>
+    </template>
+    <template v-if="['tags', 'description'].indexOf(columnKey) == -1">
         {{ cellData }}
     </template>
 </template>
@@ -15,6 +26,9 @@
     module.exports = {
         props: {
             cellData: {
+                required: true
+            },
+            rowData: {
                 required: true
             },
             columnKey: {

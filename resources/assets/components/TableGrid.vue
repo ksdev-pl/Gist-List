@@ -86,6 +86,7 @@ Partials example:
                         <td v-for="column in columns">
                             <component :is="tableCellComponent"
                                        :cell-data="rowData[column.key]"
+                                       :row-data="rowData"
                                        :column-key="column.key">
                             </component>
                         </td>
