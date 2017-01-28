@@ -13,7 +13,10 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('dynamic-table', require('./components/DynamicTable.vue'));
+Vue.component('gists-index-page', require('./components/GistsIndexPage.vue'));
+Vue.component('tags-cell', require('./components/TagsCell.vue'));
+Vue.component('table-search-input', require('./components/TableSearchInput.vue'));
 
 const app = new Vue({
     el: '#app'

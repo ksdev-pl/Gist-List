@@ -17,7 +17,9 @@
             <div id="loader"></div>
         </div>--}}
 
-        @yield('content')
+        <div id="app">
+            @yield('content')
+        </div>
 
         <script src="{{ url('/js/app.js') }}?v={{ filemtime(public_path('js/app.js')) }}"></script>
         @yield('scripts')
