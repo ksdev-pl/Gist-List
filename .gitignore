@@ -1,6 +1,8 @@
-/bootstrap/compiled.php
+/node_modules
+/public/storage
+/storage/*.key
 /vendor
-composer.phar
-.env.*.php
-.env.php
-Thumbs.db
+/.idea
+Homestead.json
+Homestead.yaml
+.env
