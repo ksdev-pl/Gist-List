@@ -23,7 +23,7 @@
                     <component v-else
                                :is="column.template"
                                :data="row[column.key]"
-                               v-on:cell-action="onCellAction">
+                               @cell-action="onCellAction">
                     </component>
                 </td>
             </tr>
@@ -88,7 +88,7 @@
             },
             rowsPerPage: {
                 type: Number,
-                default: 10
+                default: 20
             }
         },
 

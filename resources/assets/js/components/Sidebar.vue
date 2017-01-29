@@ -1,0 +1,150 @@
+<style>
+
+</style>
+
+<template>
+    <div class="left-menu">
+        <div id="actions-wrapper">
+            <div class="media">
+                <a class="pull-left" href="#" target="_blank">
+                    <img class="media-object avatar" :src="state.user.avatar">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ state.user.name }}</h4>
+                    <span id="user-login">{{ state.user.nickname }}</span><br>
+                    <a href="/logout">Sign out</a>
+                </div>
+            </div>
+            <br>
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <h4 class="panel-title">
+                            <a id="actions-collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                Actions
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <a href="https://gist.github.com" class="btn btn-default btn-block" target="_blank">
+                                New Gist
+                            </a>
+                            <br>
+                            <button class="btn btn-default btn-block btn-backup">
+                                Backup Gists
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group">
+                <a href="#" class="search-filter list-group-item filter-all"
+                   :class="{'active': state.filterBy.length == 0}" @click.prevent="state.filterBy = ''">
+                    All
+                    <span class="pull-right">{{ counter.all }}</span>
+                </a>
+                <a href="#" class="search-filter list-group-item filter-my-gists"
+                   :class="{'active': ['@owned', state.user.nickname].indexOf(state.filterBy) > -1}"
+                   @click.prevent="state.filterBy = '@owned'">
+                    @owned
+                    <span class="pull-right">{{ counter.owned }}</span>
+                </a>
+                <a href="#" class="search-filter list-group-item filter-starred"
+                   :class="{'active': state.filterBy == '@starred'}" @click.prevent="state.filterBy = '@starred'">
+                    @starred
+                    <span class="pull-right">{{ counter.starred }}</span>
+                </a>
+                <a href="#" class="search-filter list-group-item filter-public"
+                   :class="{'active': state.filterBy == '@public'}" @click.prevent="state.filterBy = '@public'">
+                    @public
+                    <span class="pull-right">{{ counter.public }}</span>
+                </a>
+                <a href="#" class="search-filter list-group-item filter-private"
+                   :class="{'active': state.filterBy == '@private'}" @click.prevent="state.filterBy = '@private'">
+                    @private
+                    <span class="pull-right">{{ counter.private }}</span>
+                </a>
+            </div>
+        </div>
+        <div class="list-group scrollable-list">
+            <a v-for="tag in state.tags" href="#" class="search-filter list-group-item filter-tag"
+               :class="{'active': state.filterBy == tag}"
+               @click.prevent="state.filterBy = tag">
+                <span class="label tag"
+                      :style="{backgroundColor: '#f00'}">{{ tag }}</span>
+                <span class="pull-right">{{ counter.tags[tag] }}</span>
+            </a>
+        </div>
+    </div>
+</template>
+
+<script>
+    import store from '../store';
+
+    export default {
+        props: {
+            /*gists: {
+                type: Array,
+                required: true
+            },
+            user: {
+                type: Object,
+                required: true
+            },
+            searchQuery: {
+                type: String,
+                default: ''
+            },
+            tags: {
+                type: Array,
+                required: true
+            }*/
+        },
+
+        data: function () {
+            return {
+                state: store.state,
+            }
+        },
+
+        computed: {
+            counter() {
+                let counter = {
+                    'all': 0,
+                    'owned': 0,
+                    'starred': 0,
+                    'public': 0,
+                    'private': 0,
+                    'tags': {}
+                };
+                _.forEach(this.state.gists, gist => {
+                    counter.all++;
+                    if (_.includes(gist.type, '@owned')) {
+                        counter.owned++;
+                    }
+                    if (_.includes(gist.type, '@starred')) {
+                        counter.starred++;
+                    }
+                    if (_.includes(gist.type, '@public')) {
+                        counter.public++;
+                    } else {
+                        counter.private++;
+                    }
+                    if (gist.tags.length == 0) {
+                        counter.withoutTag++;
+                    } else {
+                        _.forEach(gist.tags, tag => {
+                            if (counter.tags.hasOwnProperty(tag)) {
+                                counter.tags[tag]++;
+                            } else {
+                                counter.tags[tag] = 1;
+                            }
+                        })
+                    }
+                });
+                return counter;
+            }
+        }
+    }
+</script>

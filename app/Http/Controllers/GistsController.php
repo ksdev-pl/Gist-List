@@ -16,10 +16,13 @@ class GistsController extends Controller
     {
         $gistsAndTags = $gistFinder->fetchGistsAndTags();
 
-        return view('gists.index', [
-                'gists' => json_encode($gistsAndTags['gists']),
-                'tags'  => json_encode($gistsAndTags['tags'])
-            ]
-        );
+        $state = collect([
+            'user'     => auth()->user(),
+            'gists'    => $gistsAndTags['gists'],
+            'tags'     => $gistsAndTags['tags'],
+            'filterBy' => '',
+        ]);
+
+        return view('gists.index', compact('state'));
     }
 }

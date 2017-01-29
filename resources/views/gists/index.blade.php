@@ -1,5 +1,5 @@
 @extends('__base')
 
 @section('content')
-    <gists-index-page :gists="{{ $gists }}"></gists-index-page>
+    <gists-index-page></gists-index-page>
 @endsection

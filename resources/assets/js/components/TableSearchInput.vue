@@ -4,7 +4,7 @@
         <span v-if="value.length == 0" class="glyphicon glyphicon-search form-control-feedback"></span>
         <span v-else
               class="glyphicon glyphicon-remove form-control-feedback text-primary"
-              @click="updateValue('')">
+              @click="$emit('input', '')">
         </span>
     </div>
 </template>

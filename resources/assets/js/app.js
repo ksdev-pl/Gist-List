@@ -17,6 +17,7 @@ Vue.component('dynamic-table', require('./components/DynamicTable.vue'));
 Vue.component('gists-index-page', require('./components/GistsIndexPage.vue'));
 Vue.component('tags-cell', require('./components/TagsCell.vue'));
 Vue.component('table-search-input', require('./components/TableSearchInput.vue'));
+Vue.component('sidebar', require('./components/Sidebar.vue'));
 
 const app = new Vue({
     el: '#app'
