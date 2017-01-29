@@ -1,10 +1,12 @@
 <template>
-    <div>
+    <div class="container" style="margin-top: 40px">
         <table-search-input v-model="filterBy"></table-search-input>
         <dynamic-table :columns="columns"
                        :rows="gists"
                        :filter-by="filterBy"
-                       v-on:cell-action="onCellAction"></dynamic-table>
+                       sort-column="description"
+                       v-on:cell-action="onCellAction">
+        </dynamic-table>
     </div>
 </template>
 
@@ -17,14 +19,14 @@
             }
         },
 
-        data: () => {
+        data: function () {
             return {
                 columns: [
-                    {id: 'tags', label: 'Tags', template: 'tags-cell'},
-                    {id: 'description', label: 'Description'},
-                    {id: 'owner', label: 'Owner'},
-                    {id: 'created', label: 'Created'},
-                    {id: 'updated', label: 'Updated'}
+                    {key: 'tags', label: 'Tags', template: 'tags-cell', sortable: false},
+                    {key: 'description', label: 'Description'},
+                    {key: 'owner', label: 'Owner'},
+                    {key: 'created', label: 'Created'},
+                    {key: 'updated', label: 'Updated'}
                 ],
                 filterBy: ''
             }
