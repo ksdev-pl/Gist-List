@@ -19,9 +19,9 @@
             <tbody>
             <tr v-for="row in paginatedRows">
                 <td v-for="column in columns">
-                    <span v-if="!column.hasOwnProperty('template')">{{ row[column.key]}}</span>
+                    <span v-if="!column.hasOwnProperty('component')">{{ row[column.key]}}</span>
                     <component v-else
-                               :is="column.template"
+                               :is="column.component"
                                :data="row[column.key]"
                                @cell-action="onCellAction">
                     </component>

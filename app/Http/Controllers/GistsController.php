@@ -17,10 +17,9 @@ class GistsController extends Controller
         $gistsAndTags = $gistFinder->fetchGistsAndTags();
 
         $state = collect([
-            'user'     => auth()->user(),
-            'gists'    => $gistsAndTags['gists'],
-            'tags'     => $gistsAndTags['tags'],
-            'filterBy' => '',
+            'user'  => auth()->user(),
+            'gists' => $gistsAndTags['gists'],
+            'tags'  => $gistsAndTags['tags']
         ]);
 
         return view('gists.index', compact('state'));

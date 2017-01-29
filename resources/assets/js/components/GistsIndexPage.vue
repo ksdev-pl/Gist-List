@@ -4,10 +4,10 @@
 
         <div class="main">
             <div class="container-fluid">
-                <table-search-input v-model="state.filterBy"></table-search-input>
+                <table-search-input v-model="filterBy"></table-search-input>
                 <dynamic-table :columns="columns"
-                               :rows="state.gists"
-                               :filter-by="state.filterBy"
+                               :rows="gists"
+                               :filter-by="filterBy"
                                sort-column="description"
                                @cell-action="onCellAction">
                 </dynamic-table>
@@ -22,14 +22,23 @@
     export default {
         data: function () {
             return {
-                state: store.state,
                 columns: [
-                    {key: 'tags', label: 'Tags', template: 'tags-cell'},
-                    {key: 'description', label: 'Description'},
-                    {key: 'owner', label: 'Owner'},
-                    {key: 'created', label: 'Created'},
-                    {key: 'updated', label: 'Updated'}
+                    { key: 'tags', label: 'Tags', component: 'tags-cell' },
+                    { key: 'description', label: 'Description' },
+                    { key: 'owner', label: 'Owner' },
+                    { key: 'created', label: 'Created' },
+                    { key: 'updated', label: 'Updated' }
                 ]
+            }
+        },
+
+        computed: {
+            gists() {
+                return this.$store.state.gists;
+            },
+            filterBy: {
+                get() { return this.$store.state.filterBy },
+                set(value) { this.$store.commit('updateFilter', value) }
             }
         },
 
@@ -37,7 +46,7 @@
             onCellAction(data) {
                 switch (data.name) {
                     case 'filterByTag':
-                        this.state.filterBy = data.value;
+                        this.$store.commit('updateFilter', data.value);
                         break;
                     default:
                         throw 'Invalid onCellAction data.name'

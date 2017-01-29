@@ -19,6 +19,9 @@ Vue.component('tags-cell', require('./components/TagsCell.vue'));
 Vue.component('table-search-input', require('./components/TableSearchInput.vue'));
 Vue.component('sidebar', require('./components/Sidebar.vue'));
 
+import store from './store';
+
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store
 });
