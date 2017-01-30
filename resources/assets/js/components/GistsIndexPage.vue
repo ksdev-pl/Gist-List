@@ -17,8 +17,6 @@
 </template>
 
 <script>
-    import store from '../store';
-
     export default {
         data: function () {
             return {
@@ -33,9 +31,7 @@
         },
 
         computed: {
-            gists() {
-                return this.$store.state.gists;
-            },
+            gists() { return this.$store.state.gists; },
             filterBy: {
                 get() { return this.$store.state.filterBy },
                 set(value) { this.$store.commit('updateFilter', value) }
@@ -46,7 +42,7 @@
             onCellAction(data) {
                 switch (data.name) {
                     case 'filterByTag':
-                        this.$store.commit('updateFilter', data.value);
+                        this.filterBy = data.value;
                         break;
                     default:
                         throw 'Invalid onCellAction data.name'

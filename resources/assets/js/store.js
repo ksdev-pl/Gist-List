@@ -7,8 +7,8 @@ export default new Vuex.Store({
     state: {
         user: window.state.user,
         gists: window.state.gists,
-        filterBy: '',
-        tags: window.state.tags
+        tags: window.state.tags,
+        filterBy: ''
     },
     mutations: {
         updateFilter(state, filter) {

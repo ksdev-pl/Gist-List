@@ -7,11 +7,11 @@
         <div id="actions-wrapper">
             <div class="media">
                 <a class="pull-left" href="#" target="_blank">
-                    <img class="media-object avatar" :src="state.user.avatar">
+                    <img class="media-object avatar" :src="user.avatar">
                 </a>
                 <div class="media-body">
-                    <h4 class="media-heading">{{ state.user.name }}</h4>
-                    <span id="user-login">{{ state.user.nickname }}</span><br>
+                    <h4 class="media-heading">{{ user.name }}</h4>
+                    <span id="user-login">{{ user.nickname }}</span><br>
                     <a href="/logout">Sign out</a>
                 </div>
             </div>
@@ -40,37 +40,37 @@
             </div>
             <div class="list-group">
                 <a href="#" class="search-filter list-group-item filter-all"
-                   :class="{'active': state.filterBy.length == 0}" @click.prevent="state.filterBy = ''">
+                   :class="{'active': filterBy.length == 0}" @click.prevent="filterBy = ''">
                     All
                     <span class="pull-right">{{ counter.all }}</span>
                 </a>
                 <a href="#" class="search-filter list-group-item filter-my-gists"
-                   :class="{'active': ['@owned', state.user.nickname].indexOf(state.filterBy) > -1}"
-                   @click.prevent="state.filterBy = '@owned'">
+                   :class="{'active': ['@owned', user.nickname].indexOf(filterBy) > -1}"
+                   @click.prevent="filterBy = '@owned'">
                     @owned
                     <span class="pull-right">{{ counter.owned }}</span>
                 </a>
                 <a href="#" class="search-filter list-group-item filter-starred"
-                   :class="{'active': state.filterBy == '@starred'}" @click.prevent="state.filterBy = '@starred'">
+                   :class="{'active': filterBy == '@starred'}" @click.prevent="filterBy = '@starred'">
                     @starred
                     <span class="pull-right">{{ counter.starred }}</span>
                 </a>
                 <a href="#" class="search-filter list-group-item filter-public"
-                   :class="{'active': state.filterBy == '@public'}" @click.prevent="state.filterBy = '@public'">
+                   :class="{'active': filterBy == '@public'}" @click.prevent="filterBy = '@public'">
                     @public
                     <span class="pull-right">{{ counter.public }}</span>
                 </a>
                 <a href="#" class="search-filter list-group-item filter-private"
-                   :class="{'active': state.filterBy == '@private'}" @click.prevent="state.filterBy = '@private'">
+                   :class="{'active': filterBy == '@private'}" @click.prevent="filterBy = '@private'">
                     @private
                     <span class="pull-right">{{ counter.private }}</span>
                 </a>
             </div>
         </div>
         <div class="list-group scrollable-list">
-            <a v-for="tag in state.tags" href="#" class="search-filter list-group-item filter-tag"
-               :class="{'active': state.filterBy == tag}"
-               @click.prevent="state.filterBy = tag">
+            <a v-for="tag in tags" href="#" class="search-filter list-group-item filter-tag"
+               :class="{'active': filterBy == tag}"
+               @click.prevent="filterBy = tag">
                 <span class="label tag"
                       :style="{backgroundColor: '#f00'}">{{ tag }}</span>
                 <span class="pull-right">{{ counter.tags[tag] }}</span>
@@ -80,35 +80,16 @@
 </template>
 
 <script>
-    import store from '../store';
-
     export default {
-        props: {
-            /*gists: {
-                type: Array,
-                required: true
-            },
-            user: {
-                type: Object,
-                required: true
-            },
-            searchQuery: {
-                type: String,
-                default: ''
-            },
-            tags: {
-                type: Array,
-                required: true
-            }*/
-        },
-
-        data: function () {
-            return {
-                state: store.state,
-            }
-        },
-
         computed: {
+            user() { return this.$store.state.user },
+            gists() { return this.$store.state.gists },
+            tags() { return this.$store.state.tags },
+            filterBy: {
+                get() { return this.$store.state.filterBy },
+                set(value) { this.$store.commit('updateFilter', value) }
+            },
+
             counter() {
                 let counter = {
                     'all': 0,
@@ -118,7 +99,7 @@
                     'private': 0,
                     'tags': {}
                 };
-                _.forEach(this.state.gists, gist => {
+                _.forEach(this.gists, gist => {
                     counter.all++;
                     if (_.includes(gist.type, '@owned')) {
                         counter.owned++;
