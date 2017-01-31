@@ -21,10 +21,10 @@
         <div id="intro-arrow-wrapper" class="text-center display-none">
             <span class="mega-octicon octicon-arrow-down"></span>
         </div>
-        {{--<div class="alert alert-warning">
+        <div class="alert alert-warning">
             <i class="fa fa-fw fa-info"></i> We are rewriting the application to prepare the ground for further
             improvements. Some things may not work. Please be patient :)
-        </div>--}}
+        </div>
     </section>
     <a href="https://github.com/ksdev-pl/Gist-List" target="_blank">
         <img style="position: absolute; top: 0; right: 0; border: 0;"

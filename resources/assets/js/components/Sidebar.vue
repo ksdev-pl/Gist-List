@@ -72,14 +72,14 @@
                :class="{'active': filterBy == tag}"
                @click.prevent="filterBy = tag">
                 <span class="label tag"
-                      :style="{backgroundColor: '#f00'}">{{ tag }}</span>
+                      :style="{backgroundColor: $root.tagColors[tag]}">{{ tag }}</span>
                 <span class="pull-right">{{ counter.tags[tag] }}</span>
             </a>
         </div>
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
     export default {
         computed: {
             user() { return this.$store.state.user },

@@ -1,17 +1,17 @@
 <template>
     <div>
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th v-for="column in columns"
                         @click="column.sortable != false ? sortBy(column.key) : null"
-                        :class="{'th-clickable': column.sortable != false, 'th-active': column.key == mutableSortColumn}">
+                        :class="{'th-clickable': column.sortable != false, 'th-active': column.key == mutableSortCol}">
                         {{ column.label }}
                         <span v-if="column.sortable != false"
-                              :class="['sort-order-icon', {'sort-order-active': column.key == mutableSortColumn}]">
-                            <i class="fa fa-sort" v-if="column.key != mutableSortColumn"></i>
-                            <i class="fa fa-sort-up" v-if="column.key == mutableSortColumn && sortOrder == 1"></i>
-                            <i class="fa fa-sort-down" v-if="column.key == mutableSortColumn && sortOrder == -1"></i>
+                              :class="['sort-order-icon', {'sort-order-active': column.key == mutableSortCol}]">
+                            <i class="fa fa-sort" v-if="column.key != mutableSortCol"></i>
+                            <i class="fa fa-sort-up" v-if="column.key == mutableSortCol && sortOrder == 1"></i>
+                            <i class="fa fa-sort-down" v-if="column.key == mutableSortCol && sortOrder == -1"></i>
                         </span>
                     </th>
                 </tr>
@@ -22,7 +22,7 @@
                     <span v-if="!column.hasOwnProperty('component')">{{ row[column.key]}}</span>
                     <component v-else
                                :is="column.component"
-                               :data="row[column.key]"
+                               :data="getCellCompData(row, column)"
                                @cell-action="onCellAction">
                     </component>
                 </td>
@@ -67,7 +67,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
     export default {
         props: {
             columns: {
@@ -95,7 +95,7 @@
         data: function () {
             return {
                 ELLIPSIS: '&hellip;',
-                mutableSortColumn: this.sortColumn && this.sortColumn.trim().length > 0
+                mutableSortCol: this.sortColumn && this.sortColumn.trim().length > 0
                     ? this.sortColumn
                     : this.columns[0].id,
                 sortOrder: 1,
@@ -117,8 +117,8 @@
                 }
 
                 rows = rows.slice().sort((a, b) => {
-                    a = a[this.mutableSortColumn];
-                    b = b[this.mutableSortColumn];
+                    a = a[this.mutableSortCol];
+                    b = b[this.mutableSortCol];
 
                     return (a === b ? 0 : (a > b ? 1 : -1)) * this.sortOrder
                 });
@@ -135,7 +135,7 @@
                 return Math.ceil(this.filteredRows.length / this.rowsPerPage);
             },
             watchableSortFilter() {
-                return this.filterBy + this.mutableSortColumn + this.sortOrder;
+                return this.filterBy + this.mutableSortCol + this.sortOrder;
             },
             formattedPages() {
                 let pages = [];
@@ -163,17 +163,28 @@
                 this.$emit('cell-action', data);
             },
             sortBy(key) {
-                if (this.mutableSortColumn == key) {
+                if (this.mutableSortCol == key) {
                     this.sortOrder = - this.sortOrder;
                     return;
                 }
 
-                this.mutableSortColumn = key;
+                this.mutableSortCol = key;
                 this.sortOrder = 1;
             },
             changePage(page) {
                 if (page != this.ELLIPSIS && page >= 1 && page <= this.pagesCount) {
                     this.currentPage = page;
+                }
+            },
+            getCellCompData(row, column) {
+                if (column.hasOwnProperty('data')) {
+                    let data = {};
+                    _.forEach(column.data, (key) => {
+                        data[key] = row[key];
+                    });
+                    return data;
+                } else {
+                    return row[column.key];
                 }
             }
         },

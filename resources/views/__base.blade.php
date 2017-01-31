@@ -13,9 +13,9 @@
 </head>
 <body>
     <!-- Preloader -->
-    {{--<div class="mask">
+    <div class="mask">
         <div id="loader"></div>
-    </div>--}}
+    </div>
 
     <div id="app">
         @yield('content')

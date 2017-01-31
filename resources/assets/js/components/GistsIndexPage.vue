@@ -8,22 +8,26 @@
                 <dynamic-table :columns="columns"
                                :rows="gists"
                                :filter-by="filterBy"
-                               sort-column="description"
-                               @cell-action="onCellAction">
+                               sort-column="description">
                 </dynamic-table>
             </div>
         </div>
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
     export default {
         data: function () {
             return {
                 columns: [
                     { key: 'tags', label: 'Tags', component: 'tags-cell' },
-                    { key: 'description', label: 'Description' },
-                    { key: 'owner', label: 'Owner' },
+                    {
+                        key: 'description',
+                        label: 'Description',
+                        component: 'description-cell',
+                        data: ['description', 'files', 'type', 'html_url']
+                    },
+                    { key: 'owner', label: 'Owner', component: 'owner-cell' },
                     { key: 'created', label: 'Created' },
                     { key: 'updated', label: 'Updated' }
                 ]
@@ -35,18 +39,6 @@
             filterBy: {
                 get() { return this.$store.state.filterBy },
                 set(value) { this.$store.commit('updateFilter', value) }
-            }
-        },
-
-        methods: {
-            onCellAction(data) {
-                switch (data.name) {
-                    case 'filterByTag':
-                        this.filterBy = data.value;
-                        break;
-                    default:
-                        throw 'Invalid onCellAction data.name'
-                }
             }
         }
     }

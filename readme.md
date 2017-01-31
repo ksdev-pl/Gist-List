@@ -1,40 +1,31 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# [Gist List](https://gistlist.ksdev.pl)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+**Rewrite in progress. Information displayed in the readme may not be current.**
 
-## About Laravel
+[![Build Status](https://img.shields.io/travis/ksdev-pl/Gist-List.svg?style=flat-square)](https://travis-ci.org/ksdev-pl/Gist-List)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/ksdev-pl/Gist-List.svg?style=flat-square)](https://scrutinizer-ci.com/g/ksdev-pl/Gist-List/?branch=master)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+__Clear Organization of Your Gists:__
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* __Add tags__: Every word in a #tag format added to a gist description will be transformed to a colored tag. As this is done using Github, you are not dependent on Gist List implementation.
+* __Backup__: Download a zip archive of all your gists, together with those that you starred. The only limitation is the size of each gist file (max 100 kB), and the frequency of one backup every five minutes.
+* __Sort and Search__: Unleash the power of a sortable table! ;-) With the help of the great DataTables instantly paginate, sort, search and filter all your gists using clear and simple interface.
+* __Keep your privacy__: No user data is stored apart from the usual server statistics and temporary files needed to perform backup - these are deleted every hour by a cron job. No database is used - gists are fetched anew with every connection.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+![Gist List](https://dl.dropboxusercontent.com/s/2u302ys3g4odfff/gist-list.png)
 
-## Learning Laravel
+## Dependencies
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+* PHP 5.4 (short array syntax)
+* [__Laravel Framework:__](https://github.com/laravel/framework) 4.2.*
+* [__Guzzle:__](https://github.com/guzzle/guzzle) ~4.0
+* [__DataTables:__](https://github.com/DataTables/DataTables) 1.10.4
+* [__jQuery File Download__](https://github.com/johnculviner/jquery.fileDownload)
+* [__Twitter Bootstrap:__](https://github.com/twbs/bootstrap) 3.3.1
+* [__Font Awesome:__](https://github.com/FortAwesome/Font-Awesome) 4.2.0
+* [__Octicons:__](https://github.com/github/octicons) 2.1.2
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Gist List is released under the [MIT license](http://opensource.org/licenses/MIT).

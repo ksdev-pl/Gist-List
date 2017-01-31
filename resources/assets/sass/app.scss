@@ -12,7 +12,7 @@
 
 /*** Global ***/
 
-html, body {
+html, body, #app {
   height: 100%;
 }
 
@@ -228,4 +228,8 @@ html, body {
 
 .text-star {
   color: orange;
+}
+
+.scrollable-list {
+
 }
