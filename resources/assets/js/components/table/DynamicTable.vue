@@ -5,13 +5,13 @@
                 <tr>
                     <th v-for="column in columns"
                         @click="column.sortable != false ? sortBy(column.key) : null"
-                        :class="{'th-clickable': column.sortable != false, 'th-active': column.key == mutableSortCol}">
+                        :class="[{'th-clickable': column.sortable != false, 'th-active': column.key == mutableSortCol}, 'table-th-' + column.key]">
                         {{ column.label }}
                         <span v-if="column.sortable != false"
                               :class="['sort-order-icon', {'sort-order-active': column.key == mutableSortCol}]">
                             <i class="fa fa-sort" v-if="column.key != mutableSortCol"></i>
-                            <i class="fa fa-sort-up" v-if="column.key == mutableSortCol && sortOrder == 1"></i>
-                            <i class="fa fa-sort-down" v-if="column.key == mutableSortCol && sortOrder == -1"></i>
+                            <i class="fa fa-sort-up" v-if="column.key == mutableSortCol && mutableSortOrder == 1"></i>
+                            <i class="fa fa-sort-down" v-if="column.key == mutableSortCol && mutableSortOrder == -1"></i>
                         </span>
                     </th>
                 </tr>
@@ -86,6 +86,10 @@
                 type: String,
                 required: false
             },
+            sortOrder: {
+                type: Number,
+                default: 1
+            },
             rowsPerPage: {
                 type: Number,
                 default: 20
@@ -98,7 +102,7 @@
                 mutableSortCol: this.sortColumn && this.sortColumn.trim().length > 0
                     ? this.sortColumn
                     : this.columns[0].id,
-                sortOrder: 1,
+                mutableSortOrder: this.sortOrder,
                 currentPage: 1,
             }
         },
@@ -120,7 +124,7 @@
                     a = a[this.mutableSortCol];
                     b = b[this.mutableSortCol];
 
-                    return (a === b ? 0 : (a > b ? 1 : -1)) * this.sortOrder
+                    return (a === b ? 0 : (a > b ? 1 : -1)) * this.mutableSortOrder
                 });
 
                 return rows;
@@ -135,7 +139,7 @@
                 return Math.ceil(this.filteredRows.length / this.rowsPerPage);
             },
             watchableSortFilter() {
-                return this.filterBy + this.mutableSortCol + this.sortOrder;
+                return this.filterBy + this.mutableSortCol + this.mutableSortOrder;
             },
             formattedPages() {
                 let pages = [];
@@ -144,7 +148,7 @@
                 for (let page = 1; page <= this.pagesCount; page++) {
 
                     if ((page == 1 || page == this.pagesCount)
-                        || (page > this.currentPage - 3 && page < this.currentPage + 3)
+                        || (page > this.currentPage - 5 && page < this.currentPage + 5)
                     ) {
                         lastPageDots = false;
                         pages.push(page);
@@ -164,12 +168,12 @@
             },
             sortBy(key) {
                 if (this.mutableSortCol == key) {
-                    this.sortOrder = - this.sortOrder;
+                    this.mutableSortOrder = - this.mutableSortOrder;
                     return;
                 }
 
                 this.mutableSortCol = key;
-                this.sortOrder = 1;
+                this.mutableSortOrder = 1;
             },
             changePage(page) {
                 if (page != this.ELLIPSIS && page >= 1 && page <= this.pagesCount) {

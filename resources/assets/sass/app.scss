@@ -231,5 +231,9 @@ html, body, #app {
 }
 
 .scrollable-list {
+  overflow-x: hidden;
 
+  .list-group-item {
+    width: 184px;
+  }
 }

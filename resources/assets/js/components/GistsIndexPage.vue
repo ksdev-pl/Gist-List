@@ -8,7 +8,8 @@
                 <dynamic-table :columns="columns"
                                :rows="gists"
                                :filter-by="filterBy"
-                               sort-column="description">
+                               sort-column="updated"
+                               :sort-order="-1">
                 </dynamic-table>
             </div>
         </div>
@@ -43,3 +44,12 @@
         }
     }
 </script>
+
+<style>
+    .table-th-tags {
+        width: 200px;
+    }
+    .table-th-owner, .table-th-created, .table-th-updated {
+        width: 150px;
+    }
+</style>

@@ -5,9 +5,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        user: window.state ? window.state.user : null,
-        gists: window.state ? window.state.gists : null,
-        tags: window.state ? window.state.tags : null,
+        user: window.state && window.state.user ? window.state.user : null,
+        gists: window.state && window.state.gists ? window.state.gists : null,
+        tags: window.state && window.state.tags ? window.state.tags : null,
         filterBy: '',
         filesVisible: false
     },

@@ -1,7 +1,11 @@
 <template>
     <div class="clearfix search-container">
         <div id="search-input" class="form-group has-feedback">
-            <input type="text" class="form-control input-lg" :value="value" v-on:input="updateValue($event.target.value)">
+            <input type="text"
+                   class="form-control input-lg"
+                   autofocus
+                   :value="value"
+                   @input="updateValue($event.target.value)">
             <span v-if="value.length == 0" class="glyphicon glyphicon-search form-control-feedback"></span>
             <span v-else
                   class="glyphicon glyphicon-remove form-control-feedback text-primary"

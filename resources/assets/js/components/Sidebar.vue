@@ -31,7 +31,7 @@
                                 New Gist
                             </a>
                             <br>
-                            <button class="btn btn-default btn-block btn-backup">
+                            <button class="btn btn-default btn-block btn-backup" disabled>
                                 Backup Gists
                             </button>
                         </div>
@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="list-group scrollable-list">
-            <a v-for="tag in tags" href="#" class="search-filter list-group-item filter-tag"
+            <a v-for="tag in sortedTags" href="#" class="search-filter list-group-item filter-tag"
                :class="{'active': filterBy == tag}"
                @click.prevent="filterBy = tag">
                 <span class="label tag"
@@ -89,7 +89,9 @@
                 get() { return this.$store.state.filterBy },
                 set(value) { this.$store.commit('updateFilter', value) }
             },
-
+            sortedTags() {
+                return _.sortBy(this.tags);
+            },
             counter() {
                 let counter = {
                     'all': 0,
