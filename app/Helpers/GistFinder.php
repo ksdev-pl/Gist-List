@@ -70,6 +70,7 @@ class GistFinder
 
             // add gist to gists array
             $gists[] = [
+                'id'          => $gist['id'],
                 'description' => $descAndTags['description'] ? $descAndTags['description'] : 'No description',
                 'tags'        => $descAndTags['tags'],
                 'owner'       => $gistOwner,

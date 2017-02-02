@@ -110,24 +110,31 @@
         computed: {
             filteredRows() {
                 let rows = this.rows;
-                let filter = this.filterBy.trim().toLowerCase();
+                let filters = this.filterBy.trim().toLowerCase().split(' ');
+                let filteredRows = null;
 
-                if (filter.length > 0) {
-                    rows = rows.filter((row) => {
+                _.forEach(filters, (filter) => {
+                    let filteredRowsPart = rows.filter((row) => {
                         return Object.keys(row).some((key) => {
                             return String(row[key]).toLowerCase().indexOf(filter) > -1
                         })
-                    })
-                }
+                    });
 
-                rows = rows.slice().sort((a, b) => {
+                    if (filteredRows === null) {
+                        filteredRows = filteredRowsPart;
+                    } else {
+                        filteredRows = _.intersectionBy(filteredRows, filteredRowsPart, 'id');
+                    }
+                });
+
+                filteredRows = filteredRows.sort((a, b) => {
                     a = a[this.mutableSortCol];
                     b = b[this.mutableSortCol];
 
                     return (a === b ? 0 : (a > b ? 1 : -1)) * this.mutableSortOrder
                 });
 
-                return rows;
+                return filteredRows;
             },
             paginatedRows() {
                 return this.filteredRows.slice(this.offset, this.offset + this.rowsPerPage);
