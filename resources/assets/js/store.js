@@ -9,7 +9,7 @@ export default new Vuex.Store({
         gists: window.state && window.state.gists ? window.state.gists : null,
         tags: window.state && window.state.tags ? window.state.tags : null,
         filterBy: '',
-        filesVisible: false
+        filesVisible: JSON.parse(localStorage.getItem('files_visible') || 'false')
     },
     mutations: {
         updateFilter(state, filter) {
@@ -17,6 +17,8 @@ export default new Vuex.Store({
         },
         updateFilesVis(state, value) {
             state.filesVisible = value;
+
+            localStorage.setItem('files_visible', value);
         }
     }
 })
