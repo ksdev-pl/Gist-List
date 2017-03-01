@@ -21,6 +21,8 @@ Vue.component('table-search-input', require('./components/table/TableSearchInput
 Vue.component('gists-index-page', require('./components/GistsIndexPage.vue'));
 Vue.component('sidebar', require('./components/Sidebar.vue'));
 
+Vue.filter('truncate', (value, length) => _.truncate(value, { length }));
+
 import store from './store';
 
 const app = new Vue({

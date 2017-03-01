@@ -72,7 +72,7 @@
                :class="{'active': filterBy == tag}"
                @click.prevent="filterBy = tag">
                 <span class="label tag"
-                      :style="{backgroundColor: $root.tagColors[tag]}">{{ tag }}</span>
+                      :style="{backgroundColor: $root.tagColors[tag]}">{{ tag | truncate(20) }}</span>
                 <span class="pull-right">{{ counter.tags[tag] }}</span>
             </a>
         </div>
