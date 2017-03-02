@@ -5,13 +5,13 @@
                 <tr>
                     <th v-for="column in columns"
                         @click="column.sortable != false ? sortBy(column.key) : null"
-                        :class="[{'th-clickable': column.sortable != false, 'th-active': column.key == mutableSortCol}, 'table-th-' + column.key]">
+                        :class="[{'th-clickable': column.sortable != false, 'th-active': column.key == mtblSortCol}, 'table-th-' + column.key]">
                         {{ column.label }}
                         <span v-if="column.sortable != false"
-                              :class="['sort-order-icon', {'sort-order-active': column.key == mutableSortCol}]">
-                            <i class="fa fa-sort" v-if="column.key != mutableSortCol"></i>
-                            <i class="fa fa-sort-up" v-if="column.key == mutableSortCol && mutableSortOrder == 1"></i>
-                            <i class="fa fa-sort-down" v-if="column.key == mutableSortCol && mutableSortOrder == -1"></i>
+                              :class="['sort-order-icon', {'sort-order-active': column.key == mtblSortCol}]">
+                            <i class="fa fa-sort" v-if="column.key != mtblSortCol"></i>
+                            <i class="fa fa-sort-up" v-if="column.key == mtblSortCol && mtblSortOrder == 1"></i>
+                            <i class="fa fa-sort-down" v-if="column.key == mtblSortCol && mtblSortOrder == -1"></i>
                         </span>
                     </th>
                 </tr>
@@ -38,8 +38,12 @@
 
         <div>
             <div class="pull-left pagination-info">
+                <select v-model="mtblRowsPerPage" class="form-control input-sm rows-per-page-select">
+                    <option :value="option" v-for="option in rowsPerPageOptions">{{ option }}</option>
+                </select>
+
                 Showing {{ offset + 1 < filteredRows.length ? offset + 1 : filteredRows.length }}
-                to {{ offset + rowsPerPage < filteredRows.length ? offset + rowsPerPage : filteredRows.length }}
+                to {{ offset + mtblRowsPerPage < filteredRows.length ? offset + mtblRowsPerPage : filteredRows.length }}
                 of {{ filteredRows.length }} entries
                 <span v-if="filterBy.trim().length > 0 && filteredRows.length < rows.length">
                     (filtered from {{ rows.length }} total entries)
@@ -99,11 +103,13 @@
         data: function () {
             return {
                 ELLIPSIS: '&hellip;',
-                mutableSortCol: this.sortColumn && this.sortColumn.trim().length > 0
+                mtblSortCol: this.sortColumn && this.sortColumn.trim().length > 0
                     ? this.sortColumn
                     : this.columns[0].id,
-                mutableSortOrder: this.sortOrder,
+                mtblSortOrder: this.sortOrder,
                 currentPage: 1,
+                mtblRowsPerPage: this.rowsPerPage,
+                rowsPerPageOptions: [10, 20, 50, 100]
             }
         },
 
@@ -128,25 +134,25 @@
                 });
 
                 filteredRows = filteredRows.sort((a, b) => {
-                    a = a[this.mutableSortCol];
-                    b = b[this.mutableSortCol];
+                    a = a[this.mtblSortCol];
+                    b = b[this.mtblSortCol];
 
-                    return (a === b ? 0 : (a > b ? 1 : -1)) * this.mutableSortOrder
+                    return (a === b ? 0 : (a > b ? 1 : -1)) * this.mtblSortOrder
                 });
 
                 return filteredRows;
             },
             paginatedRows() {
-                return this.filteredRows.slice(this.offset, this.offset + this.rowsPerPage);
+                return this.filteredRows.slice(this.offset, this.offset + this.mtblRowsPerPage);
             },
             offset() {
-                return (this.currentPage - 1) * this.rowsPerPage;
+                return (this.currentPage - 1) * this.mtblRowsPerPage;
             },
             pagesCount() {
-                return Math.ceil(this.filteredRows.length / this.rowsPerPage);
+                return Math.ceil(this.filteredRows.length / this.mtblRowsPerPage);
             },
             watchableSortFilter() {
-                return this.filterBy + this.mutableSortCol + this.mutableSortOrder;
+                return this.filterBy + this.mtblSortCol + this.mtblSortOrder + this.mtblRowsPerPage;
             },
             formattedPages() {
                 let pages = [];
@@ -174,13 +180,13 @@
                 this.$emit('cell-action', data);
             },
             sortBy(key) {
-                if (this.mutableSortCol == key) {
-                    this.mutableSortOrder = - this.mutableSortOrder;
+                if (this.mtblSortCol == key) {
+                    this.mtblSortOrder = - this.mtblSortOrder;
                     return;
                 }
 
-                this.mutableSortCol = key;
-                this.mutableSortOrder = 1;
+                this.mtblSortCol = key;
+                this.mtblSortOrder = 1;
             },
             changePage(page) {
                 if (page != this.ELLIPSIS && page >= 1 && page <= this.pagesCount) {
@@ -203,6 +209,9 @@
         watch: {
             watchableSortFilter() {
                 this.currentPage = 1;
+            },
+            mtblRowsPerPage(val) {
+                this.$emit('rows-per-page-changed', val);
             }
         }
     }
@@ -224,5 +233,11 @@
     }
     .pagination-info {
         padding-top: 7px;
+    }
+    .rows-per-page-select {
+        display: inline-block;
+        width: inherit;
+        margin-right: 10px;
+        margin-top: -5px;
     }
 </style>

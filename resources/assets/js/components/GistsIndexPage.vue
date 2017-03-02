@@ -9,7 +9,9 @@
                                :rows="gists"
                                :filter-by="filterBy"
                                sort-column="updated"
-                               :sort-order="-1">
+                               :sort-order="-1"
+                               :rows-per-page="rowsPerPage"
+                               @rows-per-page-changed="storeRowsPerPage">
                 </dynamic-table>
             </div>
         </div>
@@ -31,7 +33,8 @@
                     { key: 'owner', label: 'Owner', component: 'owner-cell' },
                     { key: 'created', label: 'Created' },
                     { key: 'updated', label: 'Updated' }
-                ]
+                ],
+                rowsPerPage: +localStorage.getItem('rows_per_page') || 20
             }
         },
 
@@ -40,6 +43,12 @@
             filterBy: {
                 get() { return this.$store.state.filterBy },
                 set(value) { this.$store.commit('updateFilter', value) }
+            }
+        },
+
+        methods: {
+            storeRowsPerPage(val) {
+                localStorage.setItem('rows_per_page', val);
             }
         }
     }
