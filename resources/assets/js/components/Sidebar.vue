@@ -153,21 +153,17 @@
                     failCallback: (html, url) => {
                         this.isBackupEnabled = true;
 
-                        switch (html) {
-                            case 'WAIT_A_MINUTE':
-                                $(".alert-info").hide();
-                                $(".alert-warning-text").text('Backup interrupted. Please wait 5 minutes before trying again.');
-                                $(".alert-warning").fadeIn().delay(6000).fadeOut();
-                                break;
-                            case 'NO_FILES':
-                                $(".alert-info").hide();
-                                $(".alert-warning-text").text('Backup interrupted. There are no files to backup.');
-                                $(".alert-warning").fadeIn().delay(6000).fadeOut();
-                                break;
-                            default:
-                                $(".alert-info").hide();
-                                $(".alert-danger").fadeIn();
-                                break;
+                        if (_.includes(html, 'WAIT_A_MINUTE')) {
+                            $(".alert-info").hide();
+                            $(".alert-warning-text").text('Backup interrupted. Please wait 5 minutes before trying again.');
+                            $(".alert-warning").fadeIn().delay(6000).fadeOut();
+                        } else if (_.includes(html, 'NO_FILES')) {
+                            $(".alert-info").hide();
+                            $(".alert-warning-text").text('Backup interrupted. There are no files to backup.');
+                            $(".alert-warning").fadeIn().delay(6000).fadeOut();
+                        } else {
+                            $(".alert-info").hide();
+                            $(".alert-danger").fadeIn();
                         }
                     }
                 });
