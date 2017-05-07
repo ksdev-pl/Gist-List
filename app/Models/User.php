@@ -19,7 +19,8 @@ class User extends Authenticatable
         'name',
         'nickname',
         'avatar',
-        'token'
+        'token',
+        'gists_backup_at'
     ];
 
     /**

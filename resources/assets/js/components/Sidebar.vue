@@ -31,8 +31,12 @@
                                 New Gist
                             </a>
                             <br>
-                            <button class="btn btn-default btn-block btn-backup" disabled>
-                                Backup Gists
+                            <button type="button"
+                                    @click.prevent="doBackup"
+                                    :disabled="!isBackupEnabled"
+                                    class="btn btn-default btn-block btn-backup">
+                                <span v-if="isBackupEnabled">Backup Gists</span>
+                                <span v-else>Please wait...</span>
                             </button>
                         </div>
                     </div>
@@ -81,6 +85,12 @@
 
 <script type="text/ecmascript-6">
     export default {
+        data: function () {
+            return {
+                isBackupEnabled: true
+            }
+        },
+
         computed: {
             user() { return this.$store.state.user },
             gists() { return this.$store.state.gists },
@@ -127,6 +137,40 @@
                     }
                 });
                 return counter;
+            }
+        },
+
+        methods: {
+            doBackup() {
+                $.fileDownload('/gists/backup', {
+                    prepareCallback: url => {
+                        this.isBackupEnabled = false;
+                        $(".alert-info").fadeIn().delay(6000).fadeOut();
+                    },
+                    successCallback: url => {
+                        this.isBackupEnabled = true;
+                    },
+                    failCallback: (html, url) => {
+                        this.isBackupEnabled = true;
+
+                        switch (html) {
+                            case 'WAIT_A_MINUTE':
+                                $(".alert-info").hide();
+                                $(".alert-warning-text").text('Backup interrupted. Please wait 5 minutes before trying again.');
+                                $(".alert-warning").fadeIn().delay(6000).fadeOut();
+                                break;
+                            case 'NO_FILES':
+                                $(".alert-info").hide();
+                                $(".alert-warning-text").text('Backup interrupted. There are no files to backup.');
+                                $(".alert-warning").fadeIn().delay(6000).fadeOut();
+                                break;
+                            default:
+                                $(".alert-info").hide();
+                                $(".alert-danger").fadeIn();
+                                break;
+                        }
+                    }
+                });
             }
         }
     }

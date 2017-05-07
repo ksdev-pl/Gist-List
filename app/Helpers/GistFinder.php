@@ -4,36 +4,35 @@ namespace App\Helpers;
 
 class GistFinder
 {
+    /** @var \Github\Api\ApiInterface $gistsApi */
     private $gistsApi;
 
+    /** @var \Github\ResultPager $paginator */
     private $paginator;
 
-    public function __construct(\Github\Client $githubClient, \Github\ResultPager $paginator)
-    {
+    /** @var \GuzzleHttp\Client $guzzle */
+    private $guzzle;
+
+    public function __construct(
+        \Github\Client $githubClient,
+        \Github\ResultPager $paginator,
+        \GuzzleHttp\Client $guzzleClient
+    ) {
         $githubClient->authenticate(\Auth::user()->token, null, \Github\Client::AUTH_HTTP_TOKEN);
 
         $this->gistsApi = $githubClient->api('gists');
-
         $this->paginator = $paginator;
+        $this->guzzle = $guzzleClient;
     }
 
-    public function fetchGistsAndTags()
+    /**
+     * Get gists and tags.
+     *
+     * @return array `['gists' => [...], 'tags' => [...]]`
+     */
+    public function getGistsAndTags()
     {
-        // fetch user and starred gists
-        $rawUserGists = collect($this->paginator->fetchAll($this->gistsApi, 'all'))
-            ->keyBy('id')
-            ->toArray();
-        $rawStarredGists = collect($this->paginator->fetchAll($this->gistsApi, 'all', ['starred']))
-            ->keyBy('id')
-            ->toArray();
-
-        // add starred label to starred gists
-        foreach ($rawStarredGists as $key => $gist) {
-            $rawStarredGists[$key]['starred'] = true;
-        }
-
-        // merge user and starred gists
-        $rawMergedGists = $rawStarredGists + $rawUserGists;
+        $rawMergedGists = $this->fetchRawGists();
 
         // prepare gists and tags arrays
         $gists = [];
@@ -87,21 +86,57 @@ class GistFinder
                     $tags[] = $tag;
                 }
             }
-
-            // sort tags
-
         }
 
         return compact('gists', 'tags');
     }
 
     /**
-     * Separate gist description and tags
+     * Fetch raw gists from GitHub.
      *
-     * Seeks tags in original gist description and saves them and description separately
-     *
-     * @param string $descriptionWithTags Gist description with optional tags
      * @return array
+     */
+    public function fetchRawGists()
+    {
+        // fetch user and starred gists
+        $rawUserGists = collect($this->paginator->fetchAll($this->gistsApi, 'all'))
+            ->keyBy('id')
+            ->toArray();
+        $rawStarredGists = collect($this->paginator->fetchAll($this->gistsApi, 'all', ['starred']))
+            ->keyBy('id')
+            ->toArray();
+
+        // add starred label to starred gists
+        foreach ($rawStarredGists as $key => $gist) {
+            $rawStarredGists[$key]['starred'] = true;
+        }
+
+        // merge user and starred gists
+        $rawMergedGists = $rawStarredGists + $rawUserGists;
+
+        return $rawMergedGists;
+    }
+
+    /**
+     * Get the content of a Gist file.
+     *
+     * @param string $url
+     *
+     * @return string
+     */
+    public function getGistFileContents($url)
+    {
+        return (string)$this->guzzle->get($url)->getBody();
+    }
+
+    /**
+     * Separate gist description and tags.
+     *
+     * Seeks tags in original gist description and saves them and description separately.
+     *
+     * @param string $descriptionWithTags Gist description with optional tags.
+     *
+     * @return array `['description' => '...', 'tags' => [...]]`
      */
     private function separateDescriptionAndTags($descriptionWithTags)
     {

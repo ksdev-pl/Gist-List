@@ -3,13 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title', 'Gist List')</title>
     <meta name="description" content="Clear Organization of Your Gists">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <!-- Place favicon.ico in the root directory -->
+    <title>@yield('title', 'Gist List')</title>
     <link rel="stylesheet" href="{{ url('/css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
     @yield('styles')
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
+    </script>
 </head>
 <body>
     <!-- Preloader -->

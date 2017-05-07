@@ -4,6 +4,18 @@
 
         <div class="main">
             <div class="container-fluid">
+                <div class="alert alert-warning alert-dismissable display-none">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span class="alert-warning-text"></span>
+                </div>
+                <div class="alert alert-info alert-dismissable display-none">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    Backup is being prepared. Your download should start automatically.
+                </div>
+                <div class="alert alert-danger alert-dismissable display-none">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    Backup failed.
+                </div>
                 <table-search-input v-model="filterBy"></table-search-input>
                 <dynamic-table :columns="columns"
                                :rows="gists"

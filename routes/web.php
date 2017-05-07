@@ -26,4 +26,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('gists', 'GistsController@index')->name('gists.index');
 
+    Route::get('gists/backup', 'GistsController@backup')->name('gists.backup');
+
 });
