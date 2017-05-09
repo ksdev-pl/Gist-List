@@ -21,10 +21,9 @@
         <div id="intro-arrow-wrapper" class="text-center display-none">
             <span class="mega-octicon octicon-arrow-down"></span>
         </div>
-        <div class="alert alert-warning">
-            <i class="fa fa-fw fa-info"></i> We are rewriting the application to prepare the ground for further
-            improvements. Some things may not work. Please be patient :)
-        </div>
+        {{--<div class="alert alert-warning">
+            <i class="fa fa-fw fa-info"></i> Informational information
+        </div>--}}
     </section>
     <a href="https://github.com/ksdev-pl/Gist-List" target="_blank">
         <img style="position: absolute; top: 0; right: 0; border: 0;"
@@ -54,12 +53,6 @@
                     <p>
                         Unleash the power of a sortable table! ;-) With the help of the great DataTables
                         instantly paginate, sort, search and filter all your gists using clear and simple interface.
-                    </p>
-                    <h3><span class="mega-octicon octicon-lock fa-fw"></span> <mark>Keep your privacy</mark></h3>
-                    <p>
-                        No user data is stored apart from the usual server statistics and temporary files
-                        needed to perform backup - these are deleted every hour by a cron job. No database is used
-                        - gists are fetched anew with every connection.
                     </p>
                 </div>
             </div>
