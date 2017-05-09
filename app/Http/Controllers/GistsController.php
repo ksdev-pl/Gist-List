@@ -55,6 +55,6 @@ class GistsController extends Controller
         return response()->download($zipPath, null, [
             'Set-Cookie'   => 'fileDownload=true; path=/',
             'Content-Type' => 'application/zip'
-        ]);
+        ])->deleteFileAfterSend(true);
     }
 }
