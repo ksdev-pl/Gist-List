@@ -51,8 +51,8 @@
                 <div class="col-sm-6">
                     <h3><span class="mega-octicon octicon-search fa-fw"></span> <mark>Sort and Search</mark></h3>
                     <p>
-                        Unleash the power of a sortable table! ;-) With the help of the great DataTables
-                        instantly paginate, sort, search and filter all your gists using clear and simple interface.
+                        Unleash the power of a sortable table! ;-) Instantly paginate, sort, search and filter all your
+                        gists using clear and simple interface.
                     </p>
                 </div>
             </div>
