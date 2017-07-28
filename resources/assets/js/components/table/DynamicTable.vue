@@ -19,7 +19,7 @@
             <tbody>
             <tr v-for="row in paginatedRows">
                 <td v-for="column in columns">
-                    <span v-if="!column.hasOwnProperty('component')">{{ row[column.key]}}</span>
+                    <span v-if="!column.hasOwnProperty('component')">{{ row[column.key] }}</span>
                     <component v-else
                                :is="column.component"
                                :data="getCellCompData(row, column)"

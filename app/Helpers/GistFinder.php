@@ -143,7 +143,7 @@ class GistFinder
         $tags = [];
         $description = trim(
             preg_replace_callback(
-                '~\s(#\S+)~',
+                '~(?:^|\s)(#\S+)~',
                 function ($matches) use (&$tags) {
                     $tags[] = $matches[1];
                 },
