@@ -31,7 +31,7 @@ class GithubAuthController extends Controller
         try {
             $user = Socialite::driver('github')->user();
         } catch (\Exception $e) {
-            return redirect()->action('Auth\AuthController@redirectToProvider');
+            return redirect()->action('Auth\GithubAuthController@redirectToProvider');
         }
 
         $authUser = $this->findOrCreateUser($user);
