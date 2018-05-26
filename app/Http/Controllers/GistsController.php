@@ -19,8 +19,13 @@ class GistsController extends Controller
     {
         $gistsAndTags = $gistFinder->getGistsAndTags();
 
+        $authUser = auth()->user();
         $state = collect([
-            'user'  => auth()->user(),
+            'user'  => [
+                'name'     => $authUser->name,
+                'nickname' => $authUser->nickname,
+                'avatar'   => $authUser->avatar
+            ],
             'gists' => $gistsAndTags['gists'],
             'tags'  => $gistsAndTags['tags']
         ]);
