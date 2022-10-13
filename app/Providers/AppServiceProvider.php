@@ -28,9 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->alias('bugsnag.logger', \Psr\Log\LoggerInterface::class);
 
         $this->app->singleton(GistFinder::class, function () {
-            $githubClient = new \Github\Client(
-                new \Github\HttpClient\CachedHttpClient(['cache_dir' => storage_path('app/cache')])
-            );
+            $githubClient = new \Github\Client();
 
             $paginator = new \Github\ResultPager($githubClient);
 
