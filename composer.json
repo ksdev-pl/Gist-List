@@ -51,6 +51,9 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "platform-check": false
+        "platform-check": false,
+        "allow-plugins": {
+            "kylekatarnls/update-helper": false
+        }
     }
 }
